@@ -1,0 +1,17 @@
+===intro===
+(Click to interact with objects. Press arrow keys to move around.)
+(When you walk around, keep cursor at the center of the screen if you don't want to miss any interactable objects)
+(Flash Warnings)
+Void.
+...
+You don't feel anything but coldness.
+Your body feels like a gum sticked to the concret floor.
+But you can't bubble yourself.
+The pain from your head starts to penetrate your mind.
+Your head is bubbling you.
+Something is not right.
+No. You still have something to do.
+*[Open your eyes.]->EnterTailorShop
+
+
+->END

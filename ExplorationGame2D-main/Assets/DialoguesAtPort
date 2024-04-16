@@ -1,0 +1,162 @@
+EXTERNAL AlmaStartTalking()
+EXTERNAL AlmaEndTalking()
+
+
+
+=== function AlmaEndTalking() ===
+~ return 1
+=== function AlmaStartTalking() ===
+~ return 1
+
+
+
+
+
+===Alma===
+The tailor encounters a young person with three boobs on their face.
+*["Are you new here? I have never seen your face before."]->AlmaStartTalkingKnot
+
+===AlmaStartTalkingKnot===
+The person says:"Ah, sir, or ma'am, or whatever. It's hard to tell what you are. I'm Alma, died yesterday. "
+~AlmaStartTalking()
+"Fresh and lively.The Union just dumped me here."
+"You know what? I was wondering why no one was here to welcome me, and then you showed up."
+*["...Welcome. But I'm actually leaving."]->AlmaSecondRound
+*["Unfortunately, I'm not here to welcome you.I'm going to where you came from."]->AlmaSecondRound
+*["Good to be dead."]->AlmaSecondRound
+
+
+===AlmaSecondRound===
+Alma seems to be in his own world and doesn't reply to the tailor's greetings,"Those cloaked folks rough as hell, hauling me down here all tied up."
+*["I recall they were quite polite when moving me down here."]->DieReason
+*["How did you die?"]->DieReason
+
+===DieReason===
+Alma says:" Well, I was in debt. I got run over by a lender's car. Maybe that's why the Union didn't care much about my body."
+*["That's rough."]->WasIdiot
+*["Sounds like late capitalist society."]->WasIdiot
+
+
+
+
+===WasIdiot===
+Alma continues the rant:"I'm an idiot. A loser. An underdog. I couldn't remember anything, not any useful knowlegdge. But not anymore."
+"They said, when carrying my body, that after death, one has infinite life and memory in the underground city. Isn't that great? "
+"If I had known, I would have died earlier! I was going to die anyway when I was alive. But dead as I am now, I'm alive forever! And smart!"
+*["Having endless memory isn't necessarily a good thing."]->FoolLikeMe
+*["I doubt that."]->FoolLikeMe
+*["eternal existence here is pure torment. There's a reason why the deads are called the deads."]->FoolLikeMe
+
+===FoolLikeMe===
+Alma seems a little angry:"But of course it is a good thing! With infinite life and memory, I'll eventually know everything by endless training and making mistakes."
+*["Sounds like machine learning."]->AlmaImagine
+*["Yes, you can do that. All deads are like databases. Even CE the Alzheimer-ed star."]->AlmaImagine
+
+
+===AlmaImagine===
+Alma is in a zest:"Then, I could be a poet, a drummer, a silversmith, a botanist, an opera singer, and...and a professor, no, a SAGE!"
+"Sir, this is a revolutionary liberation of the brain! I suggest everyone die, RIGHT NOW!"
+*["Many of my old friends did pursue dramatically different careers in their prolonged death..."]->WhatDoYouDo
+
+===WhatDoYouDo===
+Alma interrupts the tailor:"So, what do you do? How long have you been dead?"
+*["Just a humble tailor. Been dead for 250 years."]->YouIdiot
+
+===YouIdiot===
+Alma says:"Oh, I see. So you are the IDIOT. 200 years was only enough for you to do just that."
+"No wonder you want to leave this place. It seems the infinite life and memory haven't elevated you. What a waste."
+*["Maybe. Who knows."]->ForReal
+*[" But I like making clothes for others."]->ForReal
+
+
+===ForReal===
+Alma exclaims in shock:"Wait, for real? No legends and tales, uncle? Swords and magic, love and hatred, redemption and sin? And...."
+*["No."]->Imsuffering
+*["Maybe."]->Imsuffering
+*["Maybe you are not an idiot. You are just an asshole socially."]->Imsuffering
+
+
+===Imsuffering===
+I'm just suffering like every other dead.
+~LoseScore(1)
+~PlayEffect()
+(This young son of a bitch. He's giving the old tailor both mental and physical damage.)
+But Alma doesn't plan to get it over with,"I had heard the city of the dead was grand and orderly because of the endless knowledge. Yes, Yes! I recall that the Union used to send people down here to learn every year!" 
+->AfterImSuffering
+
+===AfterImSuffering
+Alma becomes somewhat frantic: "Had I known death was so good, I would have killed myself earlier."
+~StopEffect()
+"I'm gonna be the smartest!"
+(Maybe he is just an idiot. Thinking of this, A relaxes a little.)
+*["You must have mistaken something, kid."]->AlmaAskForget
+*["It was, 50 years ago. People weren't so ill back then."]->AlmaAskForget
+*["Right, smartass."]->AlmaAskForget
+
+===AlmaAskForget===
+The tailor goes on,"People here flee or die. Now, I'm leaving too, to forget."
+Alma:"Forget? What a waste. What a waste!"
+" Do you have any idea on my life? I was laughed at because I can't remember anything. But now, I'm different! I can feel it, I remember every word you say clearly!"
+"If I live another fifty years, wouldn't I become an elite grandee? Just like a vampire!"
+A is getting tired of Alma and turns to leave.
+"Wait, are you leaving? For real?"
+*["Yes."]->WhereAreYouGoing
+*["There's nothing left here for me."]->WhereAreYouGoing
+*["I can't stand it anymore. Memories."]->WhereAreYouGoing
+*["I want to be an idiot, like you."]->WhereAreYouGoing
+
+
+===WhereAreYouGoing===
+"To the upper city. Have you not been listening to me at all?"
+Alma says:"Though you only have knowledge of making clothes...But that's still some wisdom. Are you going to abandon your centuries of knowledge to become a forgetful fool again? "
+*["Yes."]->HappyPerson
+*["Yes."]->HappyPerson
+*["Yes."]->HappyPerson
+
+
+===HappyPerson===
+"A forgetful human is a living human,  not necessarily a fool. Being a fool is your own problem."
+Alma says:" You don't wanna continue challenging the peaks of knowledge with your limitless energy, professor? Besides, the upper city has been protesting against the Union lately.It's all a mess. The Union is severely understaffed, and the city is full of idiots everywhere. "
+~AlmaEndTalking()
+"But we've learn that here is the heart of civilization from textbooks since kindergarten..."
+*["Great! Glad that you are not one of the idiots this time!"]->END
+*["Great.Since no one's guarding, I'll make a run for it."]->END
+*["Well, good luck becoming a professor. Gotta run."]->END
+*["Suit yourself here, but I'm the idiot going up."]->END
+
+
+
+===Lighthouse===
+The lighthouse is shut down because the Lighthouse keeper got arrested.
+There is an unknown corpse under the lighthouse.
+The tailor murmurs:"I remember WS and WE jumped from this tower. Is this place a popular spot for suicides, or has the undertakers long stopped operating?"
+~LoseScore(1)
+(Emotional damage)
+(Well,well. There's just no way you can avoid A's friends' suicide spots. They are everywhere.)
+"You know what? I shall be with them. There's no meaning." A sounds serious.
+*[Don't kill yourself. It's ridiculous to die twice]->DontSuicide
+*[Run to the uppercity and everything will be fine.]->DontSuicide
+*[At least I'm sure you will have a gigantic Holloween party if you do that.]->DontSuicide
++ [Back] -> END
+
+
+
+
+===DontSuicide===
+"Okay,okay!"
+"I... I'm getting the hell out of here!"
+The tailor looks overly excited
+->END
+
+===Seagull===
+(Chirps) Sailor! Sailor! Sail towards the raging sea!
+->END
+
+
+
+
+
+
+
+
+

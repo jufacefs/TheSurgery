@@ -1,0 +1,218 @@
+EXTERNAL OfficerStartTalking()
+EXTERNAL OfficerEndTalking()
+EXTERNAL OfficerBigHat()
+
+
+=== function OfficerEndTalking() ===
+~ return 1
+=== function OfficerStartTalking() ===
+~ return 1
+
+===function OfficerBigHat() ===
+~ return 1
+
+
+
+
+
+===Officer===
+~OfficerStartTalking()
+A doesn't know the Officer's name. But the Officer has been the officer forever
+
+->OfficerChoices
+
+
+===OfficerChoices===
+*["I'm here to deliver your hat."]
+    ->OfficerHasBigHat
+*["I heard you caught the Lighthouse Keeper? He's one of my clients. "]
+    ->LighthouseKeeper
+    
+    
+*["So the police department is dealing with E's suicide case?"]
+The Officer says:"You are talking about the writer who commited suicide a month ago. No, his case isn't dealt with."
+    ->ECase
+    
++["I have nothing else to day.Good day."]->thatsAllPolice
+
+
+===thatsAllPolice===
+ ~OfficerEndTalking()
+->END
+    
+    
+ ===OfficerHasBigHat===  
+The Officer puts a huge hat on, covering all abnormalities on his head.
+~OfficerStartTalking()
+
+~OfficerBigHat()
+The Officer says"Then I'll write you a check."
+
+The Officer says"I thought you came here to visit L, for the first time in the thirty years since L is in prison. But yes, thank you for the hat. It is brilliant. "
+*["Alright. Let's see L."]->SeeL
+*["I haven't forgotten him."]->SeeL
+*["Is he still alive?"]->SeeL
+
+
+===SeeL===
+A sinks into silence for a minute.
+"No, I don't want to see him. I can't face him." A says.
+The Officer says:"That's what I thought. You sent him behind those bars. And sir, your symptoms are severe."
+->ShopCantContinue
+
+===ShopCantContinue===
+"Yes, you are right."
+The officer shrugs:"Well, you made you choice. I have nothing to blame you as a police."
+~LoseScore(1)
+~PlayEffect()
+(A recalls what he did to L 30 years ago in the name of justice. It was not good being stuck in the middle.)
+" To be honest, sir,I might run away, to the uppercity, and regain the ability to forget. "
+
+*["Now that my shop is bankrupt, it doesn't matter what happens to me anyways."]
+
+->GoodQualityShop
+*["And your symptoms aren't looking good either, Officer. Would you come with me?"]
+->OfficerRefuse
+*["Hiding behind that hat doesn't make much difference, you know. It haunts your mind."]
+->PoliceResign
+
+
+
+===GoodQualityShop===
+The Officer asks:"What's wrong?"
+~StopEffect()
+"Nobody is buying clothes. You, E, and the Lighthouse Keeper are my last three customers."
+*["My clothes are too good in quality; people don't need to buy new ones anymore."]->Officer
+*["Now there are only about a hundred people left in town, anyways."]->Officer
+*["The market is gone. Everyone is gone."]
+->Officer
+*["I heard that you caught the lighthouse keeper?"]
+->LighthouseKeeper
+
+
+
+===LighthouseKeeper===
+"I need to deliver him his hat. "
+~OfficerStartTalking()
+The Officer says:"I kept him, but shamefully, he escaped again. The Union arrested and brought him here, but now I'm the only police left... So naturally, he escaped again."
+*["So it's down to a one-actor show, big man?"]->PoliceResign
+*["Why are you still here then? The job is unachievable."]->PoliceResign
+*["There is hardly any need for law enforcement in a town with only 100 people, eh?"]->PoliceResign
+*["Good for him! You should resign, honestly."]->PoliceResign
+
+===PoliceResign===
+The Officer says:"Bitter as ever, tailor. Bitter as ever."
+*["Why are you still doing the job, anyways. There aren't much to do."]
+->OfficerRefuse
+*["You might want to run away with me."]
+"You must have felt guilty and painful enough in your police career...Just inferring from your symptoms, no offense. Forgetting might be the only cure for us."
+->OfficerRefuse
+
+
+===OfficerRefuse===
+~StopEffect()
+The Officer says:"I don't know, tailor. I don't know."
+He says:"Someone has to be the police, right? You know?"
+*["The only thing I know is that you are very ill."]->SomeOneHasTo
+*["Even if you try to hide your illness under the hat."]->SomeOneHasTo
+*["Don't you want to escape?"]
+->SomeOneHasTo
+
+===SomeOneHasTo===
+The Officer says:"Those feelings and turmoils flash before my eyes and wake me up from nightmares...all the time... every time. "
+"You know what I mean, tailor. You have bloody hands too."
+"You sense the surge? All your guilt, disappointment, loss, and regret. That's ..."
+*["Stop it. I don't want to recall more."]->CantForget
+*["Stop it. I don't want to remember L. Or remember anything."]->CantForget
+*["Stop it. Can we just forget it? Or pretend they don't exist?"]->CantForget
+
+===CantForget===
+The Officer says:"No one forgets anything here, sir. You are one of the dead, and that's the way it is."
+The Officer says:"Run away as you wish. But someone got to be the police. Can't left the office empty."
+The Officer goes on:"I heard that the Union is distracted by the strike in upper city. It is your best chance to run away."
+*["You are not going to turn me in, are you?"]->EscapeInstruction
+*["How can I run away?"]->EscapeInstruction
+
+
+===EscapeInstruction===
+The Officer says:"The Union keeps a boat by the port, to transport the deads down here when they die. "
+~OfficerEndTalking()
+The Officer hands the tailor a key:"I happen to have a spare key for it. It violates my duty but...try your fortune, tailor. You might not be caught."
+~KEY = true
+"I heard there is a portal connecting the dead's city and the living's city up there."
+(You got the boat key!)
+
+*["Take care, Officer. And bid me good luck."]->END
+*["Now I see how the Lighthouse keeper got away. Maybe you shouldn't resign after all."]->END
+
+
+
+
+
+===ECase===
+*["Do you know why he died?"]->OfficerTalkAboutE
+*["Then adding a hat to E's belongings should be allowed?"]->OfficerTalkAboutE
+*["Do you know anything about him?"]
+->OfficerTalkAboutE
+
+
+===OfficerTalkAboutE===
+The Officer says:"E hasn't looked like himself for a long time. But anyways, he didn't care much about his appearance anymore,too."
+"He hasn't written any book for the past ten years. E has been living in severe delusions ever since Randy left him and run off to upper city."
+*["Aren't we all living in delusions?"]->FriendOfE
+*["You are living in delusion too, Officer."]->FriendOfE
+*["He, you, and I, are all dead. How can we 'live' in delusions?"]->FriendOfE
+*["So why did he commit suicide?"]->FriendOfE
+*["Maybe. Perhaps. He get caught up by his past."]->FriendOfE
+*["That is just like me, Officer."] ->FriendOfE
+ 
+ 
+ ===FriendOfE===
+ The Officer says:"He didn't have a tailor shop to run, nor did he need to be a police officer. 27 years ago, E invited me to his house, crying that he discovered the epic he had just completed was so similar to something already written by someone else. After living for hundreds of years, we've become indifferent to any story. He went without food and drink for many days, thinking he was a mediocrity. Since then, he has been tormented by a lack of inspiration, burning every piece he wrote. Such a pitiable, pitiable writer."
+ *["A wroter. Haha. Ok, I didn't know he was your friend."]->DidntKnow
+ *["Sorry, I didn't know E was your friend. I shouldn't have asked so much, right?"]->DidntKnow
+ 
+ 
+ 
+ ===DidntKnow===
+ ~LoseScore(1)
+ ~PlayEffect()
+ The Officer says:"Yes...E is my friend. But that is okay.
+ "I know you are an asshole since 200 years ago."
+ ~StopEffect()
+ ~OfficerEndTalking()
+ ->END
+ 
+ 
+ 
+ 
+ ===Prison===
+ Are you sure the tailor would want to check it out?
+ 
+*[Yes. Let's have a look.]->VisitPrison
+*[Ok, better not.]-> NotVisitPrison
+
+
+===VisitPrison===
+ "No. I'm not going to visit L. I owe him too much."
+  ~LoseScore(1)
+  ~PlayEffect()
+    (Poor fella has some emotional damage now.)
+ "Stop urging me to review my acquaintances."
+ ~StopEffect()
+ "When is it going to end..."
+ ->END
+ 
+ ===NotVisitPrison===
+ The tailor sighs:"L is in there. And he wouldn't want to see me after what I've done."
+ "Farewell. Maybe someday we can be reunited up there, and I will finally have the courage to fix it al."
+ ->END
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

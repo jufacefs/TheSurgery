@@ -1,0 +1,24 @@
+===PosterInBoat===
+Poster"Celine Easton as the hot captain!"
+"At Godot Getaway April 23.913"
+Poster "Celine Easton won the Granny's Awards!"
+Newspaper cutout: "Celine Easton is still alive?! Exclusive Interview!"
+The tailor puts down the whole collection pile:"Yeah, CE was a big star at that time.
+Those good old days. Her head was smooth like an egg by then."
+->END
+
+
+
+===SailingProcess===
+~activate("BlackScreen")
+You can't believe you and this old tailor sailed for 5 whole days.
+A needs no food because he's dead, but it is boring as hell.
+You wrote some brief notes in A's mind:
+"Day 1: Our pockets light but spirits high, We're ready to outwit the Union or at least die humorously trying.
+Day 2: Amidst the vast wet nothingness, we were briefly joined by dolphin skeletons. I guess the janitors are all gone. Oh, no, maybe the janitors are among them? Oh, hell no.
+Day 3: Yes, a storm. Seagulls keep crashing on our front windows. RF should've seriously taught me how to speak bird language.
+Day 4: Post-storm, the sea pretended nothing happened, all calm and shiny, while we navigated by stars that didn't care if we died again. Ah, tailor, good old fella. I think we are almost there.
+Day 5: We found the tunnel's mouth. Looks like the Union also gone bankrupt. 
+It still retains some of its once majestic structure, but the stacks of debris prove that it has fallen into disrepair over the years.
+At least there's no Union bastards hanging around."
+->sail

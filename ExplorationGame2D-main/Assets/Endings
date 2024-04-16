@@ -1,0 +1,9 @@
+===ToChapter2===
+“This must be it."
+"It is very suspicious that not a single Union member is around."
+"...However, A new world."
+"Or an old one that is long gone."
+"I can smell happiness. It smells like almond coissant."
+(Chapter two to be completed.)
+~gameEvent("restart")
+->END

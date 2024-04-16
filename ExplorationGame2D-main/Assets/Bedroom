@@ -1,0 +1,42 @@
+===BedroomIntro===
+The door is ajar, "A" pushes it open and enters.
+"Ah...This is exactly like the apartment room I used to live in."
+~LoseScore(1)
+"But nothing much. Nothing worth mentioning."
+->END
+
+===Pillow===
+The pillow is soaked in red and newspapers.
+*[Place E's hat on the pillow.]->PlaceHat
+*[Place the printed bill of the hat on the pillow.]
+    "You haven't paid me yet. But you are gone already."
+    ->Pillow
+*[Look at the newspaper marks around the pillow.]
+->PillowWords
+
+
+===PlaceHat===
+~ activate("Hat")
+    "Better to leave his hat and other beloings together. There's not much left here anyways."
+    ->Pillow
+
+
+
+
+===PillowWords===
+"The pillow is full of E's blood. It's heavy to contain a growing database of news in your head every day." 
+~LoseScore(1)
+"Rest In peace. You escaped,E."
+->END
+
+
+===BurntDocuments===
+"Natural History and The Original Wandermaker" by Easton Emerson <>
+"The Surgery" by Eleanor Erin Edgar<>
+"Structural Bearing" by Emerson Evelyn<>
+"Flyfish Street" by Edith Earl
+"Some books I read over the past 100 years. I didn't know they were written by him."
+*["How peculiar it is to learn someone after his second death."]
+"He seems to have lived forever right by the next door."
+~LoseScore(1)
+->END

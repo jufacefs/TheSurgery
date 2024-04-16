@@ -1,0 +1,132 @@
+===RFOnStart===
+~ activate("CamRF")
+~ teleport("car_dark_1 (5)")
+"She wasn't rugged like this 30 years ago, and so wasn't I."
+*["Long time no see."]->RFTalk
+*["What have you been up to these days?"]->RFExperience
+
++[The tailor finds no more topic with RF]->DeactivateRFCamera
+
+
+
+
+===RFExperience===
+RF:"One lived as an architect and designed the Fraternity Center.
+Then one started an advertising agency, but it went bankrupt.
+After two years, one got bored and decided to run for mayor. 
+Later, one turned to studying mathematics, which took up a hundred years of my time. Mathematics is an excellent way to waste one's endless life, and even now, one is still..."
+
+*["Good for you."]->RFNewLanguage
+*["I admire your resistance for the pain of living."]->RFNewLanguage
+*["Sounds like a good way of distraction."]->RFNewLanguage
+
+
+===RFNewLanguage===
+ RF:"One is creating a new language, allowing us, the dead, to communicate with seagulls and pigeons."
+ *["You just never get tired."]->DeactivateRFCamera
+ *["Can you teach me a bit?"]->BirdLanguage
+ 
+===BirdLanguage===
+RF spilled her all her bird vocabulary out on A:"sghoagapohpengp   2 wgH  11OPHFP hadsB1poAFKABGWVW"
+ (bird chirps)
+ RF:"This is all the progress one has gotten to."
+ *["A never-fading memory only has its pros at these times"]->DeactivateRFCamera
+
+
+
+
+===RFTalk===
+"Haven't seen you since your Mayor term ended 30 years ago."
+RF:"You look different from 30 years ago. Got two more hands, A?"->RFSecondRound
+
+*["You actually remember the appearance of everyone who voted for you, RF."]->RFSecondRound
+*["Your memory is extraordinary.even among the deads."]->RFSecondRound
+*["Well,something happened. Something I cannot forget. Please don't make me recall."]->LoseScoreandDeactivateRF
+
+
+
+===LoseScoreandDeactivateRF===
+~LoseScore(1)
+~ deactivate("CamRF")
+->END
+
+
+===RFRoundInSecondRound===
+-RF:" Too much things happened, and we remember too much. There are no such big hats that can cover for our symptoms now."
+//  ~LoseScore(1)
+ *["And they stopped ordering camouflouges from me."]->RFThirdRound
+ *["That's right. Some cowards simply stay at home since nothing is big enough to cover their faces."]->RFThirdRound
+ *["I'm bankrupt, good old Mayor."]->RFThirdRound
+ *["Everydead is barely hanging on, good old Mayor."]->RFThirdRound
+
+===RFSecondRound===
+RF:"One would say it is the basic being in politics. But perhaps you were the only one exposing the symptoms back then when everyone else was hiding behind hats, cloaks, or masks."
+*  [ "Their hats, cloaks, and masks were probably made by me."]->RFRoundInSecondRound
+* [ "I have a trend on my own right."]->RFRoundInSecondRound
+*   ["You weren't as blocky when you first became mayor, too."]->RFRoundInSecondRound
+
+
+
+===RFThirdRound===
+RF says:"Maybe, but some things need to be remembered. Better to remember than to forget, right, sir? These are just a tiny whiney side product of knowledge and wisdom."
+*["Maybe."]
+    ->DeactivateRFCamera
+*["Better to live a damned eternal life than die for good?"]
+    ->DeactivateRFCamera
+*["I assume your devotion to Math and seagulls has dramatically relieved your pain of being haunted by stacks of past."]
+    ->DeactivateRFCamera
+*["ONE can tell you have a true love in Math, or bird language."]->END
+*[ "You see, this is exactly why you've only had one term, dear old Mayor."] 
+"You never empathizes with your citizen's pain and turmoil."
+RF replies:"One typically recalls your appearance for you threw tomatoes at one's campaign."
+    ->DeactivateRFCamera
+   
+===DeactivateRFCamera===
+~deactivate("CamRF")
+->END
+
+
+
+===FlyerRF===
+An old flyer.
+"Ralph Fortson will deliver a mayoral campaign speech at the Park Square on October 19, 903, at 3:00 PM."
+A shrugs,"It's all about things from over thirty years ago. 
+Sigh, ever since the last gardener fled to the upper city, the Park Square has become a wasteland overgrown with grass."
+->END
+ 
+ ===NewspaperOnStreet===
+"July 13, 916, gang shooting at port, 61 deads shot dead, with the injured being treated at the central medical facility. NNI insurance company filed for bankruptcy, with only 19 customers receiving compensation."
+ "We invite all citizens to out protest on Aug 18, 916."
+A lowers the newspaper and says:"I sewed shrouds for all of them. Back then, I had a small workshop and hired two assistants."
+ "Strange that people still wanted to live at that day. Live like deads."
+ "After attending these people's funerals, I returned to my studio and fell asleep for three days straight. Where was another hand on the back of my head when I woke up."
+ ->END
+ 
+ 
+ 
+ ===FlyerLighthouse===
+ "Lighthouse Keeper, KB, is arrested with a creww of 5, on their way of escaping to the living's city. ---THE UNION BULLITIN"
+ "Hey, he is one of my customers..."
+ *["I might need to find him in prison and pay for his hat."]->END
+ *["Everyone is running away. Maybe I should do the same."]
+    "I haven't been in jail in my death of 250 years yet, so I'm not afraid to get caught."
+    ->END
+    
+    
+    
+===Deadbody===
+A mess consist of dried blood, newspapers, and burnt files.
+The tailor murmurs:"I guess the janitor also run away. Also the city management department of some sort."
+->END
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

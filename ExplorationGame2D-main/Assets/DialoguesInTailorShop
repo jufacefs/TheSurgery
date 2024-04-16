@@ -1,0 +1,164 @@
+//optional introduction paragraph
+== EnterTailorShop ===
+~deactivate("BlackScreen")
+~activate("tailors_shop")
+This is definitely not your head. Your appearance should've been well-maintained.
+This, is ugly.
+It twitches and twists and has every organ fighting each other.
+But this is your head. This is your head now, and this has been your head since at least 50 years ago.
+You know you are stuck here, with this pathetic tailor. 
+The business barely hangs on. 
+And our tailor, "A", is about to shut his store down.
+But first, he needs to find his last 3 orders and deliver them to his last customers.
+->IntroChoices
+
+
+
+===IntroChoices===
+And besides, the pain of sickness is almost killing him for the second time.
+// ->END
+*[The second time?]->KillSecondTime
+*[What's wrong with business?]->BusinessNotRun
+*[If that's the tailor, who am I?]->WhoAmI
+*[What orders?]->WhatOrders
++[ok let's go]->END
+
+
+===KillSecondTime===
+Why, my friend. We are all dead. A common sense, you know?
+->IntroChoices
+
+
+
+===WhatOrders===
+Guess what? You are a tailor. And what else? You make customized clothes for our dead citizens. Your last orders are in the box. Your customers will only pay you once the clothes are delivered.
+->IntroChoices
+
+===BusinessNotRun===
+"People hardly need to buy new ones after purchasing my crafts, for they are far too durable and good. And the population decreases nonstop. Frankly, I've only received three orders this year."
+->IntroChoices
+
+
+
+===WhoAmI===
+You don't know. The only thing you know is that you can talk to the tailor, and you are stuck with this poor patient.
+->IntroChoices
+
+
+
+
+===DummyDialogues===
+The clothes stiches look unfinished. The decayed texture indicates that the work was quitted a long time ago.
+*["So, you made mostly women's clothing, coats, skirts, and the like"]->BackThen
+*["Are you not going to complete this order?"]->CouldntPay
+// +[leave]->END
+
+===BackThen===
+"Maybe 90, 100 years ago, yes. Back then, every dead pursued fashion and tailored clothes. 
+"But as people lived longer and longer, they no longer found joy in the craftsmanship of an old tailor like me."
+    ->DummyDialogues
+
+
+===CouldntPay===
+"She could never pay me now."
+// *[What happened?]
+ "Maybe she escaped to the living's realm. Maybe she died again, for good."
+ ->END
+
+
+
+
+=== PlantInTailorShop ===
+Looks like it's dying.
+*["Water it?"]-> water
+*[ Water it.]->WaterNot
+
+===water===
+"No, I'm leaving this town. I've decided. It's gonna die anyways."
+->END
+
+===WaterNot===
+"No, I'm leaving this town. I've decided. It's gonna die anyways."
+->END
+
+===suitcaseInTailorShop ===
+"I only have 3 orders this year."
+*[Giant hat]->suits1
+*[Cloak]->suits2
+*[Hat]->suits3
++[That's all]->END
+
+= suits1
+Giant hat: Awaiting payment<>
+Downtown Police Branch, Fishington 100006, Officer RI
+->suitcaseInTailorShop
+
+=suits2
+Cloak:Awaiting payment<>
+Sunset Apartments 314, Fishington 100009, Mr.E
+->suitcaseInTailorShop
+
+=suits3
+Hat: Awaiting payment<>
+lighthouse 103, Fishington 000001, Lighthouse Keeper
+->suitcaseInTailorShop
+
+=== dressmakerDummy ===
+
+//Want to store a score, and display different damage animation based on the score level. for example, score -1 with a light damage and -5 with a heavier damage animation.
+// The protagonist's sprite animation should also change as the score changes
+
+Test Functions
+
+*[(test)Test lose score function to lose 1 point]->LoseAPoint
+// *[(test)Test corruption effect]->DamageEffect
+*[(test)Test to lose another point]->LoseAPoint
+*[(test)Test to lose a third point]->LoseAPoint
+*[Lose a forth point]->Playeffect
+
+
+
+
+
+
+===Playeffect===
+~LoseScore(1)
+~PlayEffect()
+Ok, Playing the effect.
+
+~StopEffect()
+->END
+
+====LoseAPoint===
+~LoseScore(1)
+~PlayEffect()
+you lose a point
+~StopEffect()
+->dressmakerDummy
+
+
+=DamageEffect
+->END
+
+=ChangeSprite
+->END
+
+
+
+
+
+
+
+=== FilesInTailorShop ===
+THE UNION: Dec 12, 910, issue.2
+    Read newspaper.
+->END
+
+
+
+
+
+
+
+
+

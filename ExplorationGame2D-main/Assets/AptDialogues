@@ -1,0 +1,206 @@
+
+
+EXTERNAL CEStartTalking()
+EXTERNAL CEEndTalking()
+
+
+=== function CEEndTalking() ===
+~ return 1
+=== function CEStartTalking() ===
+~ return 1
+
+
+
+===TalkToCE===
+~CEStartTalking()
+Talk To the spiky front desk lady, CE.
+*"It's been twenty years."
+    ->CEFirstRound
+*["Hello,CE."]
+    ->CEFirstRound
+    
+    
+===CEFirstRound===
+CE says:"Wait, you are...? My memory isn't as good as you fellas. "
+"I was a tailor. I was THE tailor. Recall anything?" A replies.
+CE says:"A tailor? How fantastic! It sure is a rare career in this city."
+->CEFIrstRoundChoices
+
+===CEFIrstRoundChoices===
+*["Any dead is rare in this city. The population is only about 100, you know."]
+    CE says:"Oh, my. Yes, terrible. Terrible torments. Poor things."->SoundsLikeDontKnow
+*["Actually, the outfit you're wearing is one I made. I made many dresses for you when you were popular. "]->CEFirstRoundChoicesChoices
+ 
+*"Mr.E in 314 ordered a cloak, can I go up to deliver it to him?"
+    ->CETalksAboutE
++["That's all I want to say."]->END
+    
+    
+    
+    
+    
+===SoundsLikeDontKnow===
+The tailor scorns"It almost sounds like you are not one of it."
+"But yes, you weren't a part of it. You were popular because you were healthy and happy."
+->CEFirstRoundChoicesChoices
+    
+    
+    
+===CEFirstRoundChoicesChoices===
+CE:"Thank you for reminding me that I was so loved by then."
+*["You are still the prettiest among us deads."]->CESecondRound
+*["Yes, yes. We all had a bit more flesh or an extra tooth here or there, but you were smoooth like an egg."]->CESecondRound
+*["People worshiped you, Miss."]->CESecondRound
+*["My, my! You were smooth as an idiot's brain by then. What a superstar, Miss, what a star."]->CESecondRound
+    
+===CETalksAboutE===
+CE:"Why, Mr.E jumped off the building a month ago and ended his death."
+"The police haven't even dealt with his case yet.There are just not enough deads for everything."  
+ *["Another one."]
+    ->TalkAboutEBurning
+ *["Suicide?"]
+    ->TalkAboutEBurning
+ *["He didn't pay me."]
+    ->TalkAboutEBurning
+
++["I have nothing to say about it."]->END
+
+===TalkAboutEBurning===
+CE:"Yes. He burnt most of his work before he jumped down from the apartment roof. The works of over a hundred and thirty years."
+* ["Sounds like old Raymond.G."]->AfterTalkAboutEBurning
+* ["I've heard of him, might have even read his books."]->AfterTalkAboutEBurning
+* ["Sounds like everyone in this damn town, destroying unbearable stuff."]->AfterTalkAboutEBurning
+* ["Why did he do that?"]->WhyEDied
+
+
+===AfterTalkAboutEBurning===
+~LoseScore(1)
+~PlayEffect()
+(Recalling the acquaintance causes the tailor some emotional damage)
+The tailor sinks into a silent reminiscence.
+CE scorns at the tailor:"You are not afraid of reminisce, eh? I see you are used to your illness."
+->CEScorn
+
+
+===CEScorn===
+"I am afraid. I am so scared."The tailor buries his hands in his hands.
+~StopEffect()
+"But I can't help it."
+~PlayEffect()
+(Once started, the tailor just cannot stop reminiscing.)
+"The whole town is burried in newspapers. It's hard to breathe."
+"Everything looks like something or someone to me."
+~StopEffect()
+"But yes,I don't want to rewind these. Anyways, umm...ugh...ok,why did E die?"
+->WhyEDied
+
+
+
+
+
+===WhyEDied===
+CE:"Have you not throught about it? All of us share the same symptoms, how can you ask such an ignorant question? 
+    You enjoy being tortured by memories? Or do you plan to run away?"
+* ["I just couldn't let go of my tailor shop. But the business is not running now, I might get away."]->CEPlanNoRun
+* ["Inferring you are planning to run away?"]->CEPlanNoRun
+
+
+===CEPlanNoRun===
+CE says:"Don't know, my condition seems to progress slower...They hailed me as an idol  because of my smooth cheeks.I was an idol. A star. A healthy dead. A carefree butterfly.
+I'm trying to resume those good old days."
+"Maybe one day I'll have to leave too."
+"Dead and gone and shattered. It's about to become a ghost town."
+*[Let's run away. To the upper city, where people live and forget.]->SomeOtherDay
+* [What is the point of staying here anyways?]->SomeOtherDay
+
+===SomeOtherDay===
+CE says:"Don't know.Some other day, tailor. Some other day. The spikes hurt me from time to time, but they also kept me alert and conscious."
+"You know, I don't want to be an idiot that remembers nothing. So pain it be. But leave this sad place as you wish and don't worry about me."
+*["Or maybe you can have a surgery to remove these tumors."]
+CE says:"Oh cut the jokes. There's no doctor left in this town.Some other day, tailor, some other day."
+"Maybe forgetting is the only surgery to take."
+->GetLost
+
+===GetLost===
+~LoseScore(1)
+~PlayEffect()
+CE says:"Now get lost. I won't turn you in to the police."
+*["Wish me luck, Miss."]->AfterGetLost
+
+===AfterGetLost===
+~CEEndTalking()
+~StopEffect()
+CE rolls her eyes.
+->CEFIrstRoundChoices
+
+
+
+
+
+
+
+
+
+===CESecondRound===
+CE:"Awh stop it, sweet heart. Stop the flatter. I wouldn't say that I was fortunate to have Alzheimer before my first death.But it is true that I didn't endure the burden of prolonged memory now. At least, not as much."
+*"A smart choice, Miss."
+    "An early investment for an eternal afterlife."
+    ->CEThirdRound
+
+*"I wouldn't say it's fortunate, but it reforms your afterlife down here."
+    "You see, you have the quality that everyone else here have not. How precious, ha, how brilliant!
+    ->CEThirdRound
+*"You have the ability to forget! You are the rarest, the fairest of them all, Miss."
+    ->CEThirdRound
+*"I'm sure that would reduce some torments of eternal existence."
+    ->CEThirdRound
+    
+    
+===CEThirdRound===
+CE:"You are such a stingy lemon, aren't you. Now here I am, with these spikes. See, we end up the same."
+~CEEndTalking()
+" Just stop laughing at me, tailor. That is not the attitude to a lady."
+
+ ->CEFIrstRoundChoices
+    
+    
+    
+
+
+
+===Sofa===
+"I used to smoke with Claremont on this sofa a lot. He lived in this apartment. "
+"We used to have names longer than 2 letters. But now 2-letter combination can cover the population of 100. So gradually we've lost our names."
+->END
+    
+    
+    
+===Mirror===
+~activate("MirrorReflection")
+The tailor sees an ugly, coarse face.
+You see an ugly coarse face.
+~PlayEffect()
+->MirrorReflection
+
+
+
+
+===MirrorReflection===
+It's full of hands.
+"Simply looking into the mirror reminds me the stories behind each hand."
+A wants to turn away.
+"These hands aren't for free."
+*["It's my face."]->LookAway
+*["Come on, every dead look somewhat like this."]->LookAway
+*["That's not my face. I'm smooth like an idiot's brain."]->LookAway
+
+
+
+
+===LookAway===
+~deactivate("MirrorReflection")
+~StopEffect()
+"What else can be more traumatic than looking at myself?"
+CE sighs from the front desk:"You know, sir, I should've been the one saying this. But I'm sure you also had a hard time. "
+->END
+    
