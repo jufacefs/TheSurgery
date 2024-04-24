@@ -80,8 +80,6 @@ public class FitToCamera : MonoBehaviour
         float sizeVelocity = 0f;
         float smoothTime = 0.3f;
 
-        Debug.Log("Starting camera movement.");
-
         while (Vector3.Distance(mainCamera.transform.position, targetPosition) > 0.01f ||
                Mathf.Abs(mainCamera.orthographicSize - targetSize) > 0.01f)
         {
@@ -92,28 +90,12 @@ public class FitToCamera : MonoBehaviour
 
         mainCamera.transform.position = targetPosition;
         mainCamera.orthographicSize = targetSize;
-
         isCameraMoving = false;
-        Debug.Log("Camera movement completed.");
 
         if (Mathf.Abs(mainCamera.orthographicSize - originalSize) < 0.01f)
         {
-            ValueManager.Instance.ResetValue();
-            Debug.Log("Camera returned to original size, currentValue reset to 1.");
-            ResetChildColliders();
+            Debug.Log("Camera returned to original size, hiding generated objects.");
+            parentObjectControl.HideGeneratedObjects(); 
         }
     }
-
-    void ResetChildColliders()
-    {
-        // Assuming ParentObjectControl is accessible or children are tagged appropriately
-        var parentObjectControl = FindObjectOfType<ParentObjectControl>();
-        if (parentObjectControl != null)
-        {
-            parentObjectControl.ToggleChildrenColliders(false);
-            Debug.Log("Child colliders disabled.");
-        }
-    }
-
-
 }
