@@ -24,6 +24,14 @@ public class FitToCamera : MonoBehaviour
         parentObjectControl = FindObjectOfType<ParentObjectControl>();
     }
 
+    void Update()
+    {
+        if (isCameraMoving || !Input.GetMouseButtonUp(1))  // 如果相机正在移动或不是鼠标右键释放，则不做处理
+            return;
+
+        StartCoroutine(MoveAndZoomCamera(originalPosition, originalSize)); // 恢复摄像机的初始位置和大小
+    }
+
     void OnMouseDown()
     {
         if (isCameraMoving || !Input.GetMouseButton(0))  // 如果相机正在移动或不是鼠标左键点击，则不做处理
@@ -39,14 +47,6 @@ public class FitToCamera : MonoBehaviour
         Vector3 targetPosition = transform.position - (transform.forward * 10);  // 你可能需要根据实际情况调整这里的值
 
         StartCoroutine(MoveAndZoomCamera(targetPosition, requiredSize));
-    }
-
-    void Update()
-    {
-        if (isCameraMoving || !Input.GetMouseButtonUp(1))  // 如果相机正在移动或不是鼠标右键释放，则不做处理
-            return;
-
-        StartCoroutine(MoveAndZoomCamera(originalPosition, originalSize)); // 恢复摄像机的初始位置和大小
     }
 
     float CalculateRequiredSize()
@@ -95,7 +95,7 @@ public class FitToCamera : MonoBehaviour
         if (Mathf.Abs(mainCamera.orthographicSize - originalSize) < 0.01f)
         {
             Debug.Log("Camera returned to original size, hiding generated objects.");
-            parentObjectControl.HideGeneratedObjects(); 
+            parentObjectControl.HideGeneratedObjects();
         }
     }
 }
