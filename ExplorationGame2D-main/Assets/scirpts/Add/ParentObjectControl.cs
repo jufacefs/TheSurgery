@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ParentObjectControl : MonoBehaviour
@@ -9,6 +10,8 @@ public class ParentObjectControl : MonoBehaviour
     public string[] spritePaths = new string[] { "Sprites/cone", "Sprites/mySprite2" }; // 存放Sprite路径的数组
     public int maxItems = 5; // 最多生成的项目数量
     private Collider2D parentCollider;
+
+    public bool hasGenerated = false; // 标记是否已生成子对象
 
     public List<GameObject> generatedObjects = new List<GameObject>();
 
@@ -35,9 +38,22 @@ public class ParentObjectControl : MonoBehaviour
         if (collider == parentCollider)
         {
             ValueManager.Instance.IncrementValue();
+            ActivateChildrenColliders(ValueManager.Instance.currentValue);
             ToggleChildrenColliders(ValueManager.Instance.currentValue >= 2);
-            GenerateRandomSprites(); // 在点击时生成新的子对象
+
+            if (!hasGenerated)
+            {
+                GenerateRandomSprites();
+                hasGenerated = true;
+            }
+            else
+            {
+                ShowGeneratedObjects();
+            }
+
+
             Debug.Log("Parent clicked, children collider state updated based on currentValue.");
+
         }
         else
         {
@@ -59,6 +75,18 @@ public class ParentObjectControl : MonoBehaviour
         }
     }
 
+
+    public void ActivateChildrenColliders(int activeCount)
+    {
+        for (int i = 0; i < children.Length; i++)
+        {
+            Collider2D childCollider = children[i].GetComponent<Collider2D> ();
+            // Enable the collider if it is within the active count range, otherwise disable it
+            childCollider.enabled = i < activeCount;
+        }
+    }
+
+
     void PerformChildAction(GameObject child)
     {
         child.GetComponent<SpriteRenderer>().color = Color.red;
@@ -75,15 +103,13 @@ public class ParentObjectControl : MonoBehaviour
 
     void GenerateRandomSprites()
     {
-        for (int i = 0; i < maxItems; i++)
+        for (int i = 0; i < Random.Range(0, maxItems + 1); i++)
         {
             GameObject newItem = Instantiate(itemPrefab, transform);
             newItem.transform.localPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
 
-            // 随机选择一个Sprite
             int spriteIndex = Random.Range(0, spritePaths.Length);
             Sprite newSprite = Resources.Load<Sprite>(spritePaths[spriteIndex]);
-            Debug.Log("Attempting to load sprite from path: " + spritePaths[spriteIndex]);
             if (newSprite == null)
             {
                 Debug.LogError("Failed to load sprite. Check path and sprite settings.");
@@ -92,9 +118,18 @@ public class ParentObjectControl : MonoBehaviour
             {
                 newItem.GetComponent<SpriteRenderer>().sprite = newSprite;
             }
+
+            generatedObjects.Add(newItem);
         }
     }
 
+    public void ShowGeneratedObjects()
+    {
+        foreach (GameObject obj in generatedObjects)
+        {
+            obj.SetActive(true);
+        }
+    }
 
     public void HideGeneratedObjects()
     {
