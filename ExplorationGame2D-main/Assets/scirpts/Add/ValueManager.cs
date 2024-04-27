@@ -1,33 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ValueManager : MonoBehaviour
 {
-    public static ValueManager Instance;
+    // Make the currentValue field public or provide a public property to access it
+    public int currentValue { get; private set; }
 
-    public int currentValue = 1;  // 设定游戏开始时的初始值为1
-
-    private static bool isInitialized = false;
-
-    void Awake()
+    // Singleton pattern
+    private static ValueManager instance;
+    public static ValueManager Instance
     {
-        if (!isInitialized)
+        get
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            currentValue = 1;  // 游戏开始时设置为1
-            isInitialized = true;
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ValueManager>();
+                if (instance == null)
+                {
+                    GameObject obj = new GameObject();
+                    obj.name = typeof(ValueManager).Name;
+                    instance = obj.AddComponent<ValueManager>();
+                }
+            }
+            return instance;
         }
-    }
-
-    public void IncrementValue()
-    {
-        currentValue++;  // 增加当前值
     }
 
     public void ResetValue()
     {
-        currentValue = 1;  // 重置为1
+        currentValue = 1;
     }
+
+    public void IncrementValue()
+    {
+        currentValue++;
+    }
+
+    // Add other methods or logic as needed
 }

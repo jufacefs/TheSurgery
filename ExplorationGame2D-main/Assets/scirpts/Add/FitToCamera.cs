@@ -95,7 +95,7 @@ public class FitToCamera : MonoBehaviour
         if (Mathf.Abs(mainCamera.orthographicSize - originalSize) < 0.01f)
         {
             Debug.Log("Camera returned to original size, hiding generated objects.");
-            parentObjectControl.HideGeneratedObjects();
+            //parentObjectControl.HideGeneratedObjects();
         }
     }
 }
