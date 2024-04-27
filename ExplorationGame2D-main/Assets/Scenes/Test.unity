@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a72247d5aa84112962198463a3c864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0.8113208, g: 0.17986828, b: 0.17986828, a: 1}
   _spriteRenderer: {fileID: 1870211319}
   _outlineSize: 7
 --- !u!114 &1870211321
@@ -1252,9 +1252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 2131062106}
-  minItems: 1
+  minItems: 3
   maxItems: 5
-  childSizeMultiplier: 0.5
+  childSizeMultiplier: 0.4
 --- !u!114 &1870211324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a72247d5aa84112962198463a3c864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0.8773585, g: 0.25244746, b: 0.25244746, a: 1}
   _spriteRenderer: {fileID: 2131062109}
   _outlineSize: 7
 --- !u!61 &2131062108
@@ -1373,7 +1373,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b317fbb0d7a2d044698a29f3b4c383d8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8867924, g: 0.16313636, b: 0.16313636, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1870211317}
-  minItems: 1
+  minItems: 2
   maxItems: 5
   childSizeMultiplier: 0.5
 --- !u!114 &2131062114
