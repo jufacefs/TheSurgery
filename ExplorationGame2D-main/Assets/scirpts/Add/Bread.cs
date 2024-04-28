@@ -4,11 +4,10 @@ public class Bread : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Collider2D collider;
-    public string jamType; // 酱料类型
-    public int nutsCount; // 坚果数量
-    public string crustType; // 皮类型
+    public string jamType; 
+    public int nutsCount; 
+    public string crustType; 
 
-    // 初始化Bread对象
     public void Initialize(string spritePath, string jamType, int nutsCount, string crustType)
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -17,7 +16,7 @@ public class Bread : MonoBehaviour
             spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         }
 
-        // 加载并设置Sprite
+        //load a sprite and sprite setting
         Sprite loadedSprite = Resources.Load<Sprite>(spritePath);
         if (loadedSprite != null)
         {

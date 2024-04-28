@@ -3,20 +3,27 @@ using System.Collections.Generic;
 
 public class ParentObjectControl : MonoBehaviour
 {
-    public GameObject itemPrefab; // 子GameObject的预制件
-    public int minItems = 1; // 最少生成的项目数量
-    public int maxItems = 5; // 最多生成的项目数量
-    public float childSizeMultiplier = 0.1f; // 子对象大小相对于父对象的比例
+    public GameObject itemPrefab;
+    public Transform[] ChildrenLocations;
+    public List<int> PreviousPositions = new List<int>();
+
+
+    //two public fields in Unity interface where the user can type in the range of random children number
+    public int minItems = 1; 
+    public int maxItems = 5; 
+    public float childSizeMultiplier = 0.1f; // children to parent in scale
     private Collider2D parentCollider;
     private float parentWidth;
     private float parentHeight;
-    private bool hasGenerated = false; // 是否已经生成过子对象
+    private bool hasGenerated = false;
+
 
     void Start()
     {
         parentCollider = GetComponent<BoxCollider2D>();
         parentWidth = parentCollider.bounds.size.x;
         parentHeight = parentCollider.bounds.size.y;
+
     }
 
     void Update()
@@ -35,18 +42,18 @@ public class ParentObjectControl : MonoBehaviour
 
     void GenerateChildrenWithinParent()
     {
-        int numberOfItems = Random.Range(minItems, maxItems + 1); // 随机生成子对象数量
+        int numberOfItems = Random.Range(minItems, maxItems + 1); 
         List<GameObject> children = new List<GameObject>();
 
         for (int i = 0; i < numberOfItems; i++)
         {
-            // 使用嵌套类生成子类
-            ChildObjectControl childControl = new ChildObjectControl();
-            SpriteRenderer parentRenderer = GetComponent<SpriteRenderer>(); // 获取父对象的SpriteRenderer组件
+            // generate new children
+            
+            SpriteRenderer parentRenderer = GetComponent<SpriteRenderer>(); 
             int parentSortingOrder = parentRenderer != null ? parentRenderer.sortingOrder : 0;
-            GameObject child = childControl.GenerateChild(itemPrefab, transform, parentWidth, parentHeight, childSizeMultiplier, children, parentSortingOrder);
+            GameObject child = GenerateChild(itemPrefab, transform, parentWidth, parentHeight, childSizeMultiplier, children, ChildrenLocations, parentSortingOrder);
 
-            SetChildRenderingOrder(child);  // 设置渲染顺序
+            SetChildRenderingOrder(child);  
             children.Add(child);
         }
     }
@@ -56,98 +63,105 @@ public class ParentObjectControl : MonoBehaviour
         SpriteRenderer childRenderer = child.GetComponent<SpriteRenderer>();
         if (childRenderer != null)
         {
-            childRenderer.sortingLayerName = "Foreground"; // 假设"Foreground"在父对象的层之上
-            childRenderer.sortingOrder = 1; // 确保此值大于父对象的sortingOrder
+            childRenderer.sortingLayerName = "Foreground"; // suppose "forground" is on the sorting layer of the parent
+            childRenderer.sortingOrder = 1; // make sure this value is bigger than the sorting layer value of parent
         }
     }
-
-    // 嵌套类用于生成子类
-    private class ChildObjectControl
+    public GameObject GenerateChild(GameObject itemPrefab, Transform parent, float parentWidth, float parentHeight, float childSizeMultiplier, List<GameObject> existingChildren, Transform[] ChildrenLocations, int parentSortingOrder = 0)
     {
-        public GameObject GenerateChild(GameObject itemPrefab, Transform parent, float parentWidth, float parentHeight, float childSizeMultiplier, List<GameObject> existingChildren, int parentSortingOrder = 0)
+
+        PreviousPositions.Clear();
+        GameObject child = Instantiate(itemPrefab, parent);
+        float scaledChildWidth = parentWidth * childSizeMultiplier;
+        float scaledChildHeight = parentHeight * childSizeMultiplier;
+        child.transform.localScale = new Vector3(scaledChildWidth, scaledChildHeight, 1);
+
+        // render the children first then the parents
+        SpriteRenderer childRenderer = child.GetComponent<SpriteRenderer>();
+        if (childRenderer != null)
         {
-            GameObject child = Instantiate(itemPrefab, parent);
-            float scaledChildWidth = parentWidth * childSizeMultiplier;
-            float scaledChildHeight = parentHeight * childSizeMultiplier;
-            child.transform.localScale = new Vector3(scaledChildWidth, scaledChildHeight, 1);
-
-            // 调整渲染排序层级，确保子对象位于父对象之上
-            SpriteRenderer childRenderer = child.GetComponent<SpriteRenderer>();
-            if (childRenderer != null)
-            {
-                childRenderer.sortingOrder = parentSortingOrder + 1;
-            }
-
-            // 确保collider立即更新其边界
-            //child.GetComponent<BoxCollider2D>().size = new Vector2(scaledChildWidth, scaledChildHeight);
-            bool isPlaced = PositionChild(child, scaledChildWidth, scaledChildHeight, parentWidth, parentHeight, existingChildren);
-
-            if (!isPlaced)
-            {
-                Destroy(child); // 如果放置失败，则销毁该子对象
-            }
-            else
-            {
-                existingChildren.Add(child); // 成功放置后添加到列表
-            }
-
-            return child;
+            childRenderer.sortingOrder = parentSortingOrder + 1;
         }
 
-        private bool PositionChild(GameObject child, float width, float height, float parentWidth, float parentHeight, List<GameObject> existingChildren)
+        // update the collider's border
+        //child.GetComponent<BoxCollider2D>().size = new Vector2(scaledChildWidth, scaledChildHeight);
+        int pos = Random.Range(0, ChildrenLocations.Length);
+        while (PreviousPositions.Contains(pos))
         {
-            BoxCollider2D childCollider = child.GetComponent<BoxCollider2D>();
-            if (childCollider == null)
-            {
-                Debug.LogError("Child object is missing BoxCollider2D component!");
-                return false;
-            }
+            pos = Random.Range(0, ChildrenLocations.Length);
+            Debug.LogError("In while loop");
 
-            bool placed = false;
-            int attempts = 0;
-            while (!placed && attempts < 100)
-            {
-                float minX = -parentWidth / 2 + width / 2;
-                float maxX = parentWidth / 2 - width / 2;
-                float minY = -parentHeight / 2 + height / 2;
-                float maxY = parentHeight / 2 - height / 2;
 
-                float posX = Random.Range(minX, maxX);
-                float posY = Random.Range(minY, maxY);
-                Vector3 potentialPosition = new Vector3(posX, posY, -1);
-
-                childCollider.enabled = false; // 禁用collider进行重叠检测
-                child.transform.localPosition = potentialPosition;
-                childCollider.enabled = true; // 重新启用collider
-
-                if (!IsColliding(childCollider, existingChildren))
-                {
-                    placed = true;
-                }
-
-                attempts++;
-            }
-
-            if (!placed)
-            {
-                Debug.LogError("Failed to place child object without collision!");
-            }
-
-            return placed;
         }
+        PreviousPositions.Add(pos);
+        child.transform.position = ChildrenLocations[pos].position;
 
-        private bool IsColliding(BoxCollider2D childCollider, List<GameObject> existingChildren)
-        {
-            foreach (GameObject existingChild in existingChildren)
-            {
-                BoxCollider2D existingCollider = existingChild.GetComponent<BoxCollider2D>();
-                if (existingCollider != null && childCollider.bounds.Intersects(existingCollider.bounds))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //if (!isPlaced)
+        //{
+        //    Destroy(child); // if cannot be placed, destroy child
+        //}
+        //else
+        //{
+        existingChildren.Add(child); // add to child list when placed
+        //}
+
+        return child;
     }
 
+    //private bool PositionChild(GameObject child, float width, float height, float parentWidth, float parentHeight, List<GameObject> existingChildren, Transform[] ChildrenLocations)
+    //{
+    //    BoxCollider2D childCollider = child.GetComponent<BoxCollider2D>();
+    //    if (childCollider == null)
+    //    {
+    //        Debug.LogError("Child object is missing BoxCollider2D component!");
+    //        return false;
+    //    }
+
+    //    bool placed = false;
+    //    int attempts = 0;
+        
+
+        //while (!placed && attempts < 100)
+        //{
+        //    float minX = -parentWidth / 2 + width / 2;
+        //    float maxX = parentWidth / 2 - width / 2;
+        //    float minY = -parentHeight / 2 + height / 2;
+        //    float maxY = parentHeight / 2 - height / 2;
+
+        //    float posX = Random.Range(minX, maxX);
+        //    float posY = Random.Range(minY, maxY);
+        //    Vector3 potentialPosition = new Vector3(posX, posY, -1);
+
+        //    childCollider.enabled = false; // disable collider to prevent overlayed checking for potential positions
+        //    child.transform.localPosition = potentialPosition;
+        //    childCollider.enabled = true; 
+
+        //    if (!IsColliding(childCollider, existingChildren))
+        //    {
+        //        placed = true;
+        //    }
+
+        //    attempts++;
+        //}
+
+    //    if (!placed)
+    //    {
+    //        Debug.LogError("Failed to place child object without collision!");
+    //    }
+
+    //    return placed;
+    //}
+
+    private bool IsColliding(BoxCollider2D childCollider, List<GameObject> existingChildren)
+    {
+        foreach (GameObject existingChild in existingChildren)
+        {
+            BoxCollider2D existingCollider = existingChild.GetComponent<BoxCollider2D>();
+            if (existingCollider != null && childCollider.bounds.Intersects(existingCollider.bounds))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
