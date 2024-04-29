@@ -67,6 +67,7 @@ public class ParentObjectControl : MonoBehaviour
             childRenderer.sortingOrder = 1; // make sure this value is bigger than the sorting layer value of parent
         }
     }
+<<<<<<< Updated upstream
     public GameObject GenerateChild(GameObject itemPrefab, Transform parent, float parentWidth, float parentHeight, float childSizeMultiplier, List<GameObject> existingChildren, Transform[] ChildrenLocations, int parentSortingOrder = 0)
     {
 
@@ -165,3 +166,6 @@ public class ParentObjectControl : MonoBehaviour
         return false;
     }
 }
+=======
+}
+>>>>>>> Stashed changes
