@@ -3,31 +3,32 @@ using System.Collections.Generic;
 
 public class ParentObjectControl : MonoBehaviour
 {
-    public GameObject itemPrefab;
-    public Transform[] ChildrenLocations;
-    public List<int> PreviousPositions = new List<int>();
+    // Public fields to adjust in the Unity editor
+    public GameObject itemPrefab;  // Prefab for child objects
+    public Transform[] ChildrenLocations;  // Positions where children can be instantiated
+    public List<int> usedPositions = new List<int>();  // Tracks positions that have been used
 
-
-    //two public fields in Unity interface where the user can type in the range of random children number
+    // Configurable range of how many children to generate
     public int minItems = 1;
     public int maxItems = 5;
-    public float childSizeMultiplier = 0.1f; // children to parent in scale
-    private Collider2D parentCollider;
-    private float parentWidth;
-    private float parentHeight;
-    private bool hasGenerated = false;
+    public float childSizeMultiplier = 0.1f;  // Scale factor for child objects relative to the parent size
 
+    private Collider2D parentCollider;  // Collider component of the parent
+    private float parentWidth;  // Width of the parent collider
+    private float parentHeight;  // Height of the parent collider
+    private bool hasGenerated = false;  // Flag to ensure children are only generated once
 
     void Start()
     {
+        // Initialize collider and dimensions on start
         parentCollider = GetComponent<BoxCollider2D>();
         parentWidth = parentCollider.bounds.size.x;
         parentHeight = parentCollider.bounds.size.y;
-
     }
 
     void Update()
     {
+        // Listen for mouse input to trigger child generation
         if (Input.GetMouseButtonDown(0) && !hasGenerated)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,32 +43,45 @@ public class ParentObjectControl : MonoBehaviour
 
     void GenerateChildrenWithinParent()
     {
-        int numberOfItems = Random.Range(minItems, maxItems + 1);
-        List<GameObject> children = new List<GameObject>();
-        SpriteRenderer parentRenderer = GetComponent<SpriteRenderer>();
-        int parentSortingOrder = parentRenderer != null ? parentRenderer.sortingOrder : 0;
+        usedPositions.Clear();
+        int numberOfItems = Random.Range(minItems, Mathf.Min(maxItems + 1, ChildrenLocations.Length));
+
         for (int i = 0; i < numberOfItems; i++)
         {
             int pos;
             do
             {
                 pos = Random.Range(0, ChildrenLocations.Length);
-            }
-            while (PreviousPositions.Contains(pos));
-            PreviousPositions.Add(pos);
+            } while (usedPositions.Contains(pos));
+            usedPositions.Add(pos);
 
             GameObject child = Instantiate(itemPrefab, ChildrenLocations[pos].position, Quaternion.identity, transform);
             child.transform.localScale = new Vector3(parentWidth * childSizeMultiplier, parentHeight * childSizeMultiplier, 1);
+            SetChildRenderingOrder(child, GetComponent<SpriteRenderer>().sortingOrder + 1);
 
-            SpriteRenderer childRenderer = child.GetComponent<SpriteRenderer>();
-            if (childRenderer != null)
+            // Make sure every child object has a collider
+            Collider2D childCollider = child.GetComponent<Collider2D>();
+            if (childCollider == null)
             {
-                childRenderer.sortingLayerName = "Foreground"; // suppose "forground" is on the sorting layer of the parent
-                childRenderer.sortingOrder = 1; // make sure this value is bigger than the sorting layer value of parent
+                child.AddComponent<BoxCollider2D>();  // Add collider
             }
 
-                children.Add(child);
+            // Adjust Z coordinate
+            Vector3 position = child.transform.position;
+            position.z = -0.1f;  // Make sure it's within click range
+            child.transform.position = position;
+        }
+    }
 
+
+    void SetChildRenderingOrder(GameObject child, int sortingOrder)
+    {
+        // Set the rendering layer and order to ensure children appear above parent
+        SpriteRenderer childRenderer = child.GetComponent<SpriteRenderer>();
+        if (childRenderer != null)
+        {
+            childRenderer.sortingLayerName = "Foreground";
+            childRenderer.sortingOrder = sortingOrder;
         }
     }
 }
