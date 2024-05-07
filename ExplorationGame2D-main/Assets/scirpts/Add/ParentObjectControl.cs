@@ -7,6 +7,7 @@ public class ParentObjectControl : MonoBehaviour
     public GameObject itemPrefab;  // Prefab for child objects
     public Transform[] ChildrenLocations;  // Positions where children can be instantiated
     public List<int> usedPositions = new List<int>();  // Tracks positions that have been used
+    public List<GameObject> generatedChildren = new List<GameObject>();  // List to keep track of generated child objects
 
     // Configurable range of how many children to generate
     public int minItems = 1;
@@ -29,17 +30,25 @@ public class ParentObjectControl : MonoBehaviour
     void Update()
     {
         // Listen for mouse input to trigger child generation
-        if (Input.GetMouseButtonDown(0) && !hasGenerated)
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
             if (hit.collider == parentCollider)
             {
-                GenerateChildrenWithinParent();
-                hasGenerated = true;
+                if (!hasGenerated)
+                {
+                    GenerateChildrenWithinParent();
+                    hasGenerated = true;
+                }
+                else
+                {
+                    ToggleChildVisibility(hit.collider.gameObject);
+                }
             }
         }
     }
+
 
     void GenerateChildrenWithinParent()
     {
@@ -58,6 +67,7 @@ public class ParentObjectControl : MonoBehaviour
             GameObject child = Instantiate(itemPrefab, ChildrenLocations[pos].position, Quaternion.identity, transform);
             child.transform.localScale = new Vector3(parentWidth * childSizeMultiplier, parentHeight * childSizeMultiplier, 1);
             SetChildRenderingOrder(child, GetComponent<SpriteRenderer>().sortingOrder + 1);
+            generatedChildren.Add(child);
 
             // Make sure every child object has a collider
             Collider2D childCollider = child.GetComponent<Collider2D>();
@@ -84,4 +94,42 @@ public class ParentObjectControl : MonoBehaviour
             childRenderer.sortingOrder = sortingOrder;
         }
     }
+
+    void ToggleChildVisibility(GameObject clickedObject)
+    {
+        foreach (GameObject child in generatedChildren)
+        {
+            if (child != null && child.transform.parent.gameObject == clickedObject)
+            {
+                child.SetActive(!child.activeSelf);
+            }
+        }
+    }
+
+    public void HideAllGeneratedObjects()
+    {
+        // Hide all generated children and their descendants
+        foreach (GameObject child in generatedChildren)
+        {
+            if (child != null)
+            {
+                HideDescendants(child.transform);
+            }
+        }
+    }
+
+    void HideDescendants(Transform parent)
+    {
+        // Hide the parent itself
+        parent.gameObject.SetActive(false);
+
+        // Hide all direct children
+        foreach (Transform child in parent)
+        {
+            child.gameObject.SetActive(false);
+            // Recursively hide descendants
+            HideDescendants(child);
+        }
+    }
+
 }
