@@ -194,7 +194,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9e371326134ce8a4c93c7067fcf7902e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -405,7 +405,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d094b86acef069b4cb2c38551bd190a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -950,7 +950,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.7882353, g: 0.9307892, b: 1, a: 1}
@@ -1280,7 +1280,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ffa486aa7be36bf448cd6bbc94ea00b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1364,7 +1364,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ffa486aa7be36bf448cd6bbc94ea00b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1393,7 +1393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &764230649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,7 +1519,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -504483997
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 144e150e3325fad40b386b63dbe2db9c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1603,7 +1603,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9e371326134ce8a4c93c7067fcf7902e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1687,7 +1687,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da674b736a3de8b4bbe5601bf70d706d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2061,7 +2061,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.7877358, b: 0.7877358, a: 1}
@@ -2331,7 +2331,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d094b86acef069b4cb2c38551bd190a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2488,7 +2488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1791311140
 Transform:
   m_ObjectHideFlags: 0
@@ -2516,6 +2516,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc90591f8971fb46894f9dbd7e002bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GM: {fileID: 0}
+  glitcheffect: {fileID: 0}
+  playeranimator: {fileID: 0}
+  CEanimator: {fileID: 0}
+  PoliceAnimator: {fileID: 0}
+  AlmaAnimator: {fileID: 0}
+  LoopEffect: {fileID: 0}
+  DoorSound: {fileID: 0}
+  JibberishSound1: {fileID: 0}
+  JibberishSound2: {fileID: 0}
+  JibberishSound3: {fileID: 0}
+  FullScreenSound1: {fileID: 0}
+  FullScreenSound2: {fileID: 0}
+  FullScreenSound3: {fileID: 0}
+  ConstantWhisper: {fileID: 0}
   introKnot: intro
   player: {fileID: 0}
   panel: {fileID: 3169535844664814863}
@@ -2524,11 +2539,13 @@ MonoBehaviour:
   buttonPrefab: {fileID: 7642382669532520416, guid: 2d7b691986f70f54da03bfcd30de3ebd, type: 3}
   typer: {fileID: 0}
   choicesContainer: {fileID: 6641638336182908074}
+  dialogueOn: 0
   typingDelay: 0.05
   currentInteractable: {fileID: 0}
   typingAudioSource: {fileID: 0}
   typeSound: []
   inkJSONAsset: {fileID: 4900000, guid: 983957fc1cfee2e4093df0c6884372c4, type: 3}
+  ScoreText2: {fileID: 0}
 --- !u!114 &1791311142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,7 +2630,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 46fec79a27e8e4142b0294efb0dee26d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2697,7 +2714,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 515163353
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c71cbf4955cab804497abe25b9801f79, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
