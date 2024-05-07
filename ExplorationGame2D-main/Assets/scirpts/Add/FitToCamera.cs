@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FitToCamera : MonoBehaviour
 {
-    public Camera mainCamera;  
-    private ParentObjectControl parentObjectControl;  
+    public Camera mainCamera;
+    private ParentObjectControl parentObjectControl;
 
     private Vector3 originalPosition;  //the initial postion of the main camera
     private float originalSize;  // initial size of main camera
-    private bool isCameraMoving = false;  
+    private bool isCameraMoving = false;
 
     void Start()
     {
@@ -28,16 +28,17 @@ public class FitToCamera : MonoBehaviour
     {
         if (isCameraMoving || !Input.GetMouseButtonUp(1))  // if the camera is moving or not right mouse up, do nothing
             return;
+        ResetToOriginalState(); // Reset to original state when right mouse button is released
 
-        StartCoroutine(MoveAndZoomCamera(originalPosition, originalSize)); // recover the original size and location
-    }
+    //StartCoroutine(MoveAndZoomCamera(originalPosition, originalSize)); // recover the original size and location
+}
 
     void OnMouseDown()
     {
-        if (isCameraMoving || !Input.GetMouseButton(0))  
+        if (isCameraMoving || !Input.GetMouseButton(0))
             return;
 
-        
+
         if (GetComponent<Collider2D>() == null)
             return;
 
@@ -66,7 +67,7 @@ public class FitToCamera : MonoBehaviour
             }
             else
             {
-         
+
                 return spriteHeight / 2.0f;
             }
         }
@@ -91,12 +92,22 @@ public class FitToCamera : MonoBehaviour
         mainCamera.transform.position = targetPosition;
         mainCamera.orthographicSize = targetSize;
         isCameraMoving = false;
-        //Debug.Log("Camera returned to original size.");
 
-        if (Mathf.Abs(mainCamera.orthographicSize - originalSize) < 0.01f)
-        {
-            Debug.Log("Camera returned to original size, hiding generated objects.");
-            //parentObjectControl.HideGeneratedObjects();
-        }
+    //Debug.Log("Camera returned to original size.");
+
+    //  if (Mathf.Abs(mainCamera.orthographicSize - originalSize) < 0.01f)
+    //  {
+    //      Debug.Log("Camera returned to original size, hiding generated objects.");
+    //      parentObjectControl.HideAllGeneratedObjects();
+    //  }
+}
+    void ResetToOriginalState()
+    {
+        isCameraMoving = true; // Prevent other movements while resetting
+        mainCamera.transform.position = originalPosition;
+        mainCamera.orthographicSize = originalSize;
+        Debug.Log("Camera returned to original size, hiding generated objects.");
+        parentObjectControl.HideAllGeneratedObjects();
+        isCameraMoving = false;
     }
 }
