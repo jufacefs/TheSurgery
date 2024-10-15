@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameSidescrolling2D.unity
     guid: 3e72f6baab2cb5c4ebe116cb6e10a25d
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 47ba577fb76e8be4fbf8829f94c69ffa, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: e925815aeb2d8994ead7f3ca4e7a03be, type: 2}
