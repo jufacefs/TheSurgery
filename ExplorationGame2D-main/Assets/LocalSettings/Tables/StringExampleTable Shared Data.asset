@@ -99,6 +99,18 @@ MonoBehaviour:
     m_Key: general
     m_Metadata:
       m_Items: []
+  - m_Id: 369737550020608
+    m_Key: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369780214480896
+    m_Key: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 369829283643392
+    m_Key: sure
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
