@@ -111,6 +111,18 @@ MonoBehaviour:
     m_Key: sure
     m_Metadata:
       m_Items: []
+  - m_Id: 645519757295616
+    m_Key: jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 645521061724160
+    m_Key: menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 645667023503360
+    m_Key: interact
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

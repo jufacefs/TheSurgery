@@ -15,6 +15,20 @@ public class Settings : MonoBehaviour
     public static int isMute;
     public static string curResolution;
 
+    public static string up1;
+    public static string up2;
+    public static string down1;
+    public static string down2;
+    public static string left1;
+    public static string left2;
+    public static string right1;
+    public static string right2;
+    public static string jump1;
+    public static string jump2;
+    public static string interact1;
+    public static string interact2;
+    public static string menuButton;
+
     private static Dictionary<string, (int, int)> resMap = new Dictionary<string, (int, int)> { 
         //{"1920*1080",(1920, 1080)},
         //{"1920*1080",(1920, 1080)},

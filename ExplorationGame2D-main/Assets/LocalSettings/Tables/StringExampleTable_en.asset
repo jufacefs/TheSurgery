@@ -114,6 +114,18 @@ MonoBehaviour:
     m_Localized: Are you sure you want to exit the game?
     m_Metadata:
       m_Items: []
+  - m_Id: 645519757295616
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 645521061724160
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 645667023503360
+    m_Localized: Interact
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
