@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5f54752e98a114a80a8fd21c42177334
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - GenWanMin2 TW
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b745223729c6b49e8955450ec5d5c2a6, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
