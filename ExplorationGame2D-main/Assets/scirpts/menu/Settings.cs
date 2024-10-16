@@ -16,10 +16,10 @@ public class Settings : MonoBehaviour
     public static string curResolution;
 
     private static Dictionary<string, (int, int)> resMap = new Dictionary<string, (int, int)> { 
-        {"1920*1080",(1920, 1080)},
-        {"1920*1080",(1920, 1080)},
-        {"1920*1080",(1920, 1080)},
-        {"1920*1080",(1920, 1080)},
+        //{"1920*1080",(1920, 1080)},
+        //{"1920*1080",(1920, 1080)},
+        //{"1920*1080",(1920, 1080)},
+        //{"1920*1080",(1920, 1080)},
         {"1920*1080",(1920, 1080)}};
     public GameObject languagePannel;
     public GameObject generalPanel;
@@ -122,7 +122,7 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetInt("fullScreen", isFullScreen);
         PlayerPrefs.SetString("resolution", curResolution);
         PlayerPrefs.SetString("language", curLanguage);
-        PlayerPrefs.
+
     }
 
     private void loadPref()
