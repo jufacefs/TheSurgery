@@ -53,12 +53,14 @@ public class Settings : MonoBehaviour
     public string curSettingKey;
     public GameObject curKeyButton;
 
-    private static Dictionary<string, (int, int)> resMap = new Dictionary<string, (int, int)> { 
-        //{"1920*1080",(1920, 1080)},
-        //{"1920*1080",(1920, 1080)},
-        //{"1920*1080",(1920, 1080)},
-        //{"1920*1080",(1920, 1080)},
-        {"1920*1080",(1920, 1080)}};
+    public static Dictionary<string, (int, int)> resMap = new Dictionary<string, (int, int)> {
+        {"1366*768",(1366, 768)},
+        {"1600*900",(1600, 900)},
+        {"1920*1080",(1920, 1080)},
+        {"2560*1440",(2560, 1440)},
+        {"3840*2160",(3840, 2160)},
+    };
+
     public GameObject languagePannel;
     public GameObject generalPanel;
     public GameObject controlsPanel;
@@ -72,7 +74,7 @@ public class Settings : MonoBehaviour
     void Start()
     {
         loadPref();
-
+        updateLanguage();
         
         updateScreen();
     }
@@ -110,6 +112,26 @@ public class Settings : MonoBehaviour
         }
     }
 
+    private void updateLanguage()
+    {
+        if(curLanguage == "en")
+        {
+            LocalizationSettings.SelectedLocale = EnglishLocale;
+        }
+        else if(curLanguage == "hant")
+        {
+            LocalizationSettings.SelectedLocale = TraditionalChinese;
+        }
+        else if(curLanguage == "hans")
+        {
+            LocalizationSettings.SelectedLocale = SimplifiedChinese;
+        }
+        else
+        {
+         
+            Debug.LogError("unexpected curLanguage token: " + curLanguage);
+        }
+    }
     public static void setButtonText(GameObject button, string text)
     {
         Dictionary<string, string> dict = new Dictionary<string, string>()
@@ -202,7 +224,6 @@ public class Settings : MonoBehaviour
         if (!isSettingKey)
         {
             savePref();
-            applyPref();
             showGeneralPannel();
             gameObject.SetActive(false);
         }
@@ -245,15 +266,6 @@ public class Settings : MonoBehaviour
         PlayerPrefs.SetString("jump1", controlKeys["jump1"]);
         PlayerPrefs.SetString("jump2", controlKeys["jump2"]);
         PlayerPrefs.SetString("menuButton", controlKeys["menuButton"]);
-    }
-
-    private void applyPref()
-    {
-        //PlayerPrefs.SetInt("mute", isMute);
-        //PlayerPrefs.SetFloat("BGM", BGMVolume);
-        //PlayerPrefs.SetFloat("effects", EffectsVolume);
-        //PlayerPrefs.SetInt("fullScreen", isFullScreen);
-        //PlayerPrefs.SetString("resolution", curResolution);
     }
 
     private void loadPref()

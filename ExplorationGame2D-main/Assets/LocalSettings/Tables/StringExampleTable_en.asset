@@ -126,6 +126,18 @@ MonoBehaviour:
     m_Localized: Interact
     m_Metadata:
       m_Items: []
+  - m_Id: 1099552674562048
+    m_Localized: Return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1388349043785728
+    m_Localized: Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1388499543801856
+    m_Localized: Confirm
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

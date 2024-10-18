@@ -123,6 +123,18 @@ MonoBehaviour:
     m_Key: interact
     m_Metadata:
       m_Items: []
+  - m_Id: 1099552674562048
+    m_Key: Return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1388349043785728
+    m_Key: Empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1388499543801856
+    m_Key: Confirm
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
