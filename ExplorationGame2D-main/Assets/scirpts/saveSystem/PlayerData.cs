@@ -6,17 +6,12 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
     // Start is called before the first frame update
-
-
-    public class SaveFile : MonoBehaviour
-    {
-
-    }
-
-    
-
     const string PLAYER_DATA_KEY = "PlayerData";
     const string PLAYER_DATA_FILE_NAME = "PlayerData.sav";
+
+    public string status;
+    public float san;
+
     void Start()
     {
         

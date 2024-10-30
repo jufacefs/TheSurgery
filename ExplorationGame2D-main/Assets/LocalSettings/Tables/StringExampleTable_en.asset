@@ -138,6 +138,14 @@ MonoBehaviour:
     m_Localized: Confirm
     m_Metadata:
       m_Items: []
+  - m_Id: 3116873530228736
+    m_Localized: In-game progress will be lost upon exiting.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3117181618634752
+    m_Localized: In-game progress will be lost after loading the game.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

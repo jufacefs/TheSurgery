@@ -9,8 +9,11 @@ public class PlayerMovement2D : MonoBehaviour
     bool FacingLeft = true;
 
     public GameObject WalkSound;
- 
+    public GameObject RunSound;
+    //run sound not yet implemented
 
+    public Vector3 cameraOffset;
+    public bool is25D;
 
     [Tooltip("How fast it accelerates")]
     public float movementForce = 1f;
@@ -59,6 +62,8 @@ public class PlayerMovement2D : MonoBehaviour
     void Start()
     {
         //add a reference to the controller component at the beginning
+        WalkSound.SetActive(false);
+        RunSound.SetActive(false);
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
 
@@ -67,7 +72,10 @@ public class PlayerMovement2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (is25D) 
+        { 
+            Camera.main.transform.position = transform.position + cameraOffset;
+        }
         if (!frozen)
         {
 
@@ -88,6 +96,7 @@ public class PlayerMovement2D : MonoBehaviour
                 {
                     movementInput.x = 1;
                     WalkSound.SetActive(true);
+
                     //Debug.Log("Facing left when moving to right"+FacingLeft);
                     if (FacingLeft)
                     {
@@ -108,10 +117,18 @@ public class PlayerMovement2D : MonoBehaviour
                    
 
                 if (Input.GetAxisRaw("Vertical") > 0)
+                {
                     movementInput.y = 1;
+                    WalkSound.SetActive(true);
+                }
+                    
 
                 if (Input.GetAxisRaw("Vertical") < 0)
+                {
                     movementInput.y = -1;
+                    WalkSound.SetActive(true);
+                }
+                    
                 
             }
 
@@ -157,13 +174,22 @@ public class PlayerMovement2D : MonoBehaviour
                 if (Input.GetAxisRaw("Horizontal") == 0)
                     newVelocity.x = 0;
                     animator.SetFloat("PlayerSpeed", 0);
-                    WalkSound.SetActive(false);
+                    //WalkSound.SetActive(false);
                 //WalkSound.enabled = false;
 
 
                 //up down not pressed zero the vertical velocity (unless two direction)
                 if (Input.GetAxisRaw("Vertical") == 0 && !twoDirection)
+                {
+                    animator.SetFloat("PlayerSpeed", 0);
+                    
                     newVelocity.y = 0;
+                }
+                if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
+                {
+                    WalkSound.SetActive(false);
+                }
+                    
 
                 rb.velocity = newVelocity;
             }
@@ -186,8 +212,11 @@ public class PlayerMovement2D : MonoBehaviour
             if (rb.velocity.x != 0)
                 
                 animator.SetFloat("PlayerSpeed", 1);
-                //WalkSound.enabled = true;
-                
+            if (rb.velocity.y != 0)
+
+                animator.SetFloat("PlayerSpeed", 1);
+            //WalkSound.enabled = true;
+
 
         }
         
