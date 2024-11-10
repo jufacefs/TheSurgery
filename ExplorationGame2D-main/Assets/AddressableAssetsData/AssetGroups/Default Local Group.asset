@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: d591addbad497e04e8aa7501bb8139a2
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: c9b6ebac77c315648bd22d10523ce3fd
+    m_Address: Assets/Scenes/demo2.5d_Profiles/Main Camera Profile.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: e539cade41b9aa44eaffb1e7b9706a5a, type: 2}
   m_SchemaSet:
