@@ -1,0 +1,36 @@
+{
+    "name":"ghost",
+    "posx":0,
+    "posy":0,
+    "children":[
+
+        {
+            "name":"diamond",
+            "posx":-0.5,
+            "posy":-0.5,
+            "children":[{
+                "name":"key",
+                "posx":0,
+                "posy":0,
+                "text":"isKey",
+                "children":[]
+            },
+            {
+                "name":"ghost",
+                "posx":0.5,
+                "posy":0.5,
+                "text":"isGhost",
+                "children":[]
+            }
+        ]
+        },
+        
+        {
+            "name":"key",
+            "posx":0,
+            "posy":0,
+            "children":[]
+        }
+
+    ]
+}

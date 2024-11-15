@@ -26,9 +26,18 @@ public class SpriteOutline : MonoBehaviour {
 
 	private Material _preMat;
 
+    private void Start()
+    {
+        //SpriteRenderer  spriteRenderer = GetComponent<SpriteRenderer>();
+		//Vector3 oriBound = spriteRenderer.bounds.size;
+		//Vector3 newBound = new Vector3 (oriBound.x+5, oriBound.y + 5, oriBound.z + 5);
+        //spriteRenderer.bounds = new Bounds(transform.position, newBound);
+		//Debug.Log(transform.name + "has been expanded");
+    }
 
 
-	void OnEnable() {
+
+    void OnEnable() {
 		_preMat = spriteRenderer.sharedMaterial;
 		spriteRenderer.sharedMaterial = defaultMaterial;
 		_outlineSize = 7;

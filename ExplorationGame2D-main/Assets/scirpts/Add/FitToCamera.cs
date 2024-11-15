@@ -10,6 +10,8 @@ public class FitToCamera : MonoBehaviour
     private Vector3 originalPosition;  //the initial postion of the main camera
     private float originalSize;  // initial size of main camera
     private bool isCameraMoving = false;
+    
+
 
     void Start()
     {

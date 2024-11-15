@@ -4,8 +4,10 @@ public class RotateBySelf : MonoBehaviour
 {
 
     public float speed = 60.0f;
+    
 
     // Use this for initialization
+
 
     void Start()
     {

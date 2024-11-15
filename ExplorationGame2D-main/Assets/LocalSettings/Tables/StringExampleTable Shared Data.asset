@@ -143,6 +143,14 @@ MonoBehaviour:
     m_Key: load loss progress
     m_Metadata:
       m_Items: []
+  - m_Id: 11288952385585152
+    m_Key: isGhost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11288989068967936
+    m_Key: isKey
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

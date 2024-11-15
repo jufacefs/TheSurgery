@@ -1,0 +1,27 @@
+
+{
+    "_comment":"这是为随机生成树所用的信息文件，没有posx poxy则为随机位置，isLeaf则点击后显示文字",
+    "data":[
+        {
+            "_comment":"此项内容为注释，不会被载入到游戏数据当中",
+            "name":"ghost",
+            "isLeaf":false,
+            "text":"",
+            "posx":0,
+            "posy":0,
+            "childrenCnt":5,
+            "scaleFactor":0.2,
+            "layer":1,
+            "chance":0.2
+        },
+        {
+            "name":"ghost",
+            "isLeaf":true,
+            "text":"这是一只鬼，但是实际上这里的值会是文字的key",
+            "childrenCnt":5,
+            "scaleFactor":0.2,
+            "layer":1,
+            "chance":0.2
+        }
+    ]
+}

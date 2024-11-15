@@ -146,6 +146,14 @@ MonoBehaviour:
     m_Localized: In-game progress will be lost after loading the game.
     m_Metadata:
       m_Items: []
+  - m_Id: 11288952385585152
+    m_Localized: This is a ghost.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11288989068967936
+    m_Localized: This is a key.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
