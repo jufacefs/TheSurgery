@@ -154,6 +154,10 @@ MonoBehaviour:
     m_Localized: This is a key.
     m_Metadata:
       m_Items: []
+  - m_Id: 12344385946796032
+    m_Localized: Insect says something
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
