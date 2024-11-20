@@ -1,7 +1,25 @@
 
 {
-    "_comment":"这是为随机生成树所用的信息文件，没有posx poxy则为随机位置，isLeaf则点击后显示文字",
-    "groups":[ 
+    "_comment":"123",
+    "myGroups":[ 
+        {
+            "name":"parent",
+            "children":[
+                {
+                    "_comment":"若childrenCnt为0，则为叶节点；若text为空，则点击后不显示文字",
+                    "name":"bush",
+                    "text":"",
+                    "isPermanent":true,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
+                    "childrenCnt":3,
+                    "childrenGroup":"bush",
+                    "chance":1
+                }
+
+            ]
+        },
         {
             "name":"bush",
             "children":[
@@ -9,11 +27,15 @@
                     "_comment":"若childrenCnt为0，则为叶节点；若text为空，则点击后不显示文字",
                     "name":"branch",
                     "text":"",
-                    "isPermanent":true,
-                    "childrenCnt":3,
+                    "isPermanent":false,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
+                    "childrenCnt":4,
                     "childrenGroup":"branch",
                     "chance":1
                 }
+
             ]
         },
         {
@@ -24,6 +46,9 @@
                     "name":"apple",
                     "text":"",
                     "isPermanent":false,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
                     "childrenCnt":5,
                     "childrenGroup":"apple",
                     "chance":0.2
@@ -33,6 +58,9 @@
                     "name":"leaf",
                     "text":"",
                     "isPermanent":false,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
                     "childrenCnt":0,
                     "childrenGroup":"",
                     "chance":0.7
@@ -42,6 +70,9 @@
                     "name":"flower",
                     "text":"",
                     "isPermanent":false,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
                     "childrenCnt":0,
                     "childrenGroup":"",
                     "chance":0.1
@@ -54,10 +85,11 @@
                     "_comment":"若childrenCnt为0，则为叶节点；若text为空，则点击后不显示文字",
                     "name":"core",
                     "text":"",
-                    "posx":0.0,
-                    "posy":0.0,
                     "isPermanent":true,
-                    "childrenCnt":0,
+                    "isRandomPos":false,
+                    "posx":0,
+                    "posy":0,
+                    "childrenCnt":1,
                     "childrenGroup":"core",
                     "chance":1
                 },
@@ -66,6 +98,9 @@
                     "name":"insect",
                     "text":"isInsect",
                     "isPermanent":false,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
                     "childrenCnt":0,
                     "childrenGroup":"core",
                     "chance":0.5
@@ -75,6 +110,9 @@
                     "name":"pulp",
                     "text":"",
                     "isPermanent":false,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
                     "childrenCnt":0,
                     "childrenGroup":"core",
                     "chance":0.5
@@ -88,6 +126,9 @@
                     "name":"seed",
                     "text":"",
                     "isPermanent":true,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
                     "childrenCnt":4,
                     "childrenGroup":"seed",
                     "chance":1
@@ -100,9 +141,12 @@
                 {
                     "_comment":"若childrenCnt为0，则为叶节点；若text为空，则点击后不显示文字",
                     "name":"insect",
-                    "text":"",
+                    "text":"isInsect",
                     "isPermanent":false,
-                    "childrenCnt":4,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
+                    "childrenCnt":0,
                     "childrenGroup":"seed",
                     "chance":0.3
                 },
@@ -111,14 +155,16 @@
                     "name":"bud",
                     "text":"",
                     "isPermanent":false,
-                    "childrenCnt":4,
+                    "isRandomPos":true,
+                    "posx":0,
+                    "posy":0,
+                    "childrenCnt":0,
                     "childrenGroup":"seed",
                     "chance":0.7
                 }
             ]
         }
-        
-        
-        
+
+
     ]
 }

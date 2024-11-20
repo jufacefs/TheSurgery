@@ -23,14 +23,16 @@ public class ZoomingController : MonoBehaviour
     private Vector3 originalPosition;  //the initial postion of the main camera
     private float originalSize;  // initial size of main camera
     private bool isCameraMoving = false;
-    private bool isInfiniteTree = false;
     private bool isShowingText = false;
     private bool isZooming = false;
     private float smoothTime = 0.3f;
     private float ScaleFactor = 0.1f;
     private GameObject parentObj;
+    private Vector3 parentOriPos;
+    private Vector3 parentOriScale;
     private TreeNode rootNode;
     private TreeNode CurrentNode;
+    private float timeoutDuration = 2f;
     private int layerCnt = 0;
 
 
@@ -63,7 +65,7 @@ public class ZoomingController : MonoBehaviour
 
     }
 
-    static Sprite getSprite(string name)
+    public static Sprite getSprite(string name)
     {
         //path = Path.Combine(Application.dataPath, spritePath);
         string path = Path.Combine(spritePath, name);
@@ -118,7 +120,26 @@ public class ZoomingController : MonoBehaviour
             Debug.Log(_jsonPath);
         }
     }
+    public void RandomTreeClicked(string name, GameObject obj,string spriteName)
+    {
+        if (isCameraMoving || isShowingText)
+        {
+            return;
+        }
+        layerCnt = 1;
+        isZooming = true;
+        rootNode = RandomTreeCreater.generateTree(name,spriteName);
+        CurrentNode = rootNode;
+        originalSize = mainCamera.orthographicSize;
+        originalPosition = mainCamera.transform.position;
+        parentObj = obj;
+        parentOriPos = parentObj.transform.position;
+        parentOriScale = parentObj.transform.localScale;
+        obj.GetComponent<IsZoomingParent>().setClickable(false);
 
+        showChildrenSprites(CurrentNode, obj);
+        ClickedObj(obj);
+    }
     public void ParentClicked(string name,GameObject obj)
     {
         if (isCameraMoving || isShowingText)
@@ -133,6 +154,8 @@ public class ZoomingController : MonoBehaviour
         originalSize = mainCamera.orthographicSize;
         originalPosition = mainCamera.transform.position;
         parentObj = obj;
+        parentOriPos = parentObj.transform.position;
+        parentOriScale = parentObj.transform.localScale;
         obj.GetComponent<IsZoomingParent>().setClickable(false);
 
         showChildrenSprites(CurrentNode, obj);
@@ -195,10 +218,19 @@ public class ZoomingController : MonoBehaviour
             return;
         if (obj.GetComponent<PolygonCollider2D>() == null)
             return;
-        float requiredSize = CalculateRequiredSize(obj);
-        Vector3 targetPosition = obj.transform.position - (obj.transform.forward * 10);  // might need to change the values
+        if(CurrentNode == rootNode)//clicking parent
+        {
+            float requiredSize = CalculateRequiredSize(obj);
+            Vector3 targetPosition = obj.transform.position - (obj.transform.forward * 10);  // might need to change the values
 
-        StartCoroutine(MoveAndZoomCamera(targetPosition, requiredSize));
+            StartCoroutine(MoveAndZoomCamera(targetPosition, requiredSize));
+        }
+        else
+        {
+            float requiredSize = CalculateTargetScale(obj, mainCamera);
+            StartCoroutine(MoveAndZoomObject(obj.transform, requiredSize));
+        }
+
         
         
     }
@@ -239,16 +271,28 @@ public class ZoomingController : MonoBehaviour
         }
     }
 
-    System.Collections.IEnumerator shinkObj(GameObject obj)
+    System.Collections.IEnumerator smoothChangeObjPosAndScale(GameObject obj,Vector3 TargetPos,Vector3 targetScale)
     {
         Vector3 velocity = Vector3.zero;
-        Vector3 targetScale = new Vector3(0, 0, 0);
+        Vector3 posVelocity = Vector3.zero;
+        float elapsedTime = 0f;
         while (Vector3.Distance(obj.transform.localScale, targetScale) > 0.001f)
         {
+            obj.transform.position = Vector3.SmoothDamp(obj.transform.position, TargetPos, ref posVelocity, smoothTime);
             obj.transform.localScale = Vector3.SmoothDamp(obj.transform.localScale, targetScale, ref velocity, smoothTime);
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= timeoutDuration)
+            {
+                break;
+            }
             yield return null;
         }
-        Destroy(obj);
+        obj.transform.position = TargetPos;
+        obj.transform.localScale = targetScale;
+        if (targetScale == Vector3.zero)
+        {
+            Destroy(obj);
+        }
     }
 
     void exitZooming()
@@ -262,7 +306,9 @@ public class ZoomingController : MonoBehaviour
 
         parentObj.GetComponent<IsZoomingParent>().setClickable(true);
         DestroyAllChildren(parentObj.transform);
+        StartCoroutine(smoothChangeObjPosAndScale(parentObj,parentOriPos,parentOriScale));
         StartCoroutine(MoveAndZoomCamera(originalPosition, originalSize));
+
         isZooming = false;
     }
 
@@ -270,7 +316,7 @@ public class ZoomingController : MonoBehaviour
     {
         for (int i = parent.childCount - 1; i >= 0; i--)
         {
-            StartCoroutine(shinkObj(parent.GetChild(i).gameObject));
+            StartCoroutine(smoothChangeObjPosAndScale(parent.GetChild(i).gameObject, parent.GetChild(i).gameObject.transform.position,Vector3.zero));
         }
     }
 
@@ -307,18 +353,102 @@ public class ZoomingController : MonoBehaviour
         isCameraMoving = true;
         Vector3 velocity = Vector3.zero;
         float sizeVelocity = 0f;
-        
+        float elapsedTime = 0f;
 
         while (Vector3.Distance(mainCamera.transform.position, targetPosition) > 0.001f ||
                Mathf.Abs(mainCamera.orthographicSize - targetSize) > 0.001f)
         {
             mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, targetPosition, ref velocity, smoothTime);
             mainCamera.orthographicSize = Mathf.SmoothDamp(mainCamera.orthographicSize, targetSize, ref sizeVelocity, smoothTime);
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= timeoutDuration)
+            {
+                break;
+            }
             yield return null;
         }
 
-        //mainCamera.transform.position = targetPosition;
-        //mainCamera.orthographicSize = targetSize;
+        mainCamera.transform.position = targetPosition;
+        mainCamera.orthographicSize = targetSize;
+        isCameraMoving = false;
+
+        //Debug.Log("Camera returned to original size.");
+
+        //  if (Mathf.Abs(mainCamera.orthographicSize - originalSize) < 0.01f)
+        //  {
+        //      Debug.Log("Camera returned to original size, hiding generated objects.");
+        //      parentObjectControl.HideAllGeneratedObjects();
+        //  }
+    }
+    float CalculateTargetScale(GameObject obj, Camera mainCamera)
+    {
+        SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            // 获取精灵的世界大小
+            float spriteHeight = spriteRenderer.bounds.size.y;
+            float spriteWidth = spriteRenderer.bounds.size.x;
+
+            // 获取屏幕宽高比
+            float screenAspect = Screen.width / (float)Screen.height;
+
+            // 计算摄像机视图的世界范围（以高度为基准）
+            float cameraWorldHeight = mainCamera.orthographicSize * 2.0f;
+            float cameraWorldWidth = cameraWorldHeight * screenAspect;
+
+            // 计算缩放比例
+            float targetScale;
+            if (spriteWidth / spriteHeight > cameraWorldWidth / cameraWorldHeight)
+            {
+                // 如果精灵的宽高比大于摄像机的宽高比，则以宽度为基准
+                targetScale = cameraWorldWidth * parentObj.transform.localScale.x / spriteWidth;
+            }
+            else
+            {
+                // 否则以高度为基准
+                targetScale = cameraWorldHeight * parentObj.transform.localScale.x / spriteHeight;
+            }
+
+            return targetScale; // 返回计算的目标缩放比例
+        }
+
+        return 1.0f; // 如果物体没有 SpriteRenderer，默认返回原始缩放比例
+    }
+    System.Collections.IEnumerator MoveAndZoomObject(Transform targetObject, float targetScale)
+    {
+        isCameraMoving = true;
+
+        //计算parent物体需要移动到的position
+        Vector3 tmpVector = (parentObj.transform.position - targetObject.transform.position);
+        tmpVector =  new Vector3(tmpVector.x *targetScale / parentObj.transform.localScale.x, tmpVector.y * targetScale / parentObj.transform.localScale.y,0);
+        Vector3 parentTargetPos =  mainCamera.transform.position + tmpVector;
+
+        parentTargetPos = new Vector3(parentTargetPos.x, parentTargetPos.y, 0);
+        // 记录初始状态
+        Vector3 startPosition = parentObj.transform.position;
+        Vector3 velocity = Vector3.zero;
+        float startScale = parentObj.transform.localScale.x; // 假设均匀缩放
+        float scaleVelocity = 0f;
+        float elapsedTime = 0f;
+        while (Vector3.Distance(parentObj.transform.position, parentTargetPos) > 0.01f ||
+               Mathf.Abs(parentObj.transform.localScale.x - targetScale) > 0.01f)
+        {
+            // 平滑移动
+            parentObj.transform.position = Vector3.SmoothDamp(parentObj.transform.position, parentTargetPos, ref velocity, smoothTime);
+
+            // 平滑缩放
+            float newScale = Mathf.SmoothDamp(parentObj.transform.localScale.x, targetScale, ref scaleVelocity, smoothTime);
+            parentObj.transform.localScale = new Vector3(newScale, newScale, newScale);
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= timeoutDuration)
+            {
+                break;
+            }
+            yield return null;
+        }
+        Debug.Log("targetObjPos: " + targetObject.position.ToString());
+        parentObj.transform.position = parentTargetPos;
+        parentObj.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
         isCameraMoving = false;
 
         //Debug.Log("Camera returned to original size.");
@@ -362,6 +492,10 @@ public class ZoomingController : MonoBehaviour
         [System.NonSerialized] public TreeNode parent;
 
         // Constructor
+        public TreeNode()
+        {
+
+        }
         public TreeNode(string name)
         {
             this.name = name;

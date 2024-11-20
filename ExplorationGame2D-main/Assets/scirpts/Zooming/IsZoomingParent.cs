@@ -7,9 +7,10 @@ public class IsZoomingParent : MonoBehaviour
 {
     // Start is called before the first frame update
     public string jsonFileName;
-    public bool isInfinite;
-    private bool isClickable = true;
+    public bool isRandomOrInfinite;
+    public bool isClickable = true;
     public bool isParent = false;
+    public string spriteName = "";
     void Start()
     {
         InitializeSprite();
@@ -18,31 +19,47 @@ public class IsZoomingParent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isClickable && Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+            if (hit.collider == GetComponent<PolygonCollider2D>())
+            {
+                detection();
+            }
+        }
+
     }
 
-    private void OnMouseDown()
+    private void detection()
     {
-        if (isClickable)
+        Debug.Log(transform.name + "is clicked");
+        //isClickable = false;
+        if (isParent)
         {
-            Debug.Log(transform.name + "is clicked");
-            //isClickable = false;
-            if (isParent)
+            if (!jsonFileName.EndsWith(".json"))
             {
-                if (!jsonFileName.EndsWith(".json"))
-                {
-                    jsonFileName = jsonFileName + ".json";
-                }
-                ZoomingController.Instance.ParentClicked(jsonFileName, transform.gameObject);
+                jsonFileName = jsonFileName + ".json";
+            }
+            if (isRandomOrInfinite)
+            {
+                ZoomingController.Instance.RandomTreeClicked(jsonFileName, transform.gameObject, spriteName);
             }
             else
             {
-                ZoomingController.Instance.ChildrenClicked(transform.gameObject);
+                ZoomingController.Instance.ParentClicked(jsonFileName, transform.gameObject);
             }
+
         }
-        
+        else
+        {
+            ZoomingController.Instance.ChildrenClicked(transform.gameObject);
+        }
     }
 
+
+      
     private void OnMouseOver()
     {
         if(isClickable)
