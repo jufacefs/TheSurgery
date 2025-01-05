@@ -16,10 +16,13 @@ public class ZoomingController : MonoBehaviour
     public static string jsonPath = $"Resources/json/";
     public Camera mainCamera;
     public static ZoomingController Instance;
-    public LocalizeStringEvent textEvent;
-    public GameObject textUI;
+    public GameObject fakePlayer;
+    public GameObject dialogueUI;
+    public GameObject dialoguePop;
 
     public Vector3 oriCameraPos;
+
+    private GameObject curDialoguePop;
     private Vector3 originalPosition;  //the initial postion of the main camera
     private float originalSize;  // initial size of main camera
     private bool isCameraMoving = false;
@@ -50,6 +53,10 @@ public class ZoomingController : MonoBehaviour
         if (mainCamera == null)
         {
             mainCamera = Camera.main;
+        }
+        if(fakePlayer != null)
+        {
+            fakePlayer.SetActive(false);
         }
     }
 
@@ -102,6 +109,7 @@ public class ZoomingController : MonoBehaviour
             return node;
         }
     }
+    
 
     public void LoadTree(string fileName)
     {
@@ -188,12 +196,19 @@ public class ZoomingController : MonoBehaviour
             {
                 CurrentNode.children[i].obj.GetComponent<IsZoomingParent>().setClickable(true);
             }
+
+            curDialoguePop = Instantiate(dialoguePop,dialogueUI.transform);
+            setDialoguePopPos(obj);
+            curDialoguePop.SetActive(true);
+            dialogueUI.SetActive(true);
+            SetLocalizedText(curDialoguePop,nextNode.text);
             
-            SetLocalizedText(nextNode.text);
+
+
             isShowingText = true;
             Debug.Log("we are clicking a leaf");
             clickToClose.beginListening(true);
-            textUI.SetActive(true);
+            
             
         }
         else
@@ -204,12 +219,19 @@ public class ZoomingController : MonoBehaviour
             showChildrenSprites(CurrentNode, obj);
             ClickedObj(obj);
         }
-        
     }
 
-    public void closeTextUI()
+    private void setDialoguePopPos(GameObject clickedObj)
     {
-        textUI.SetActive(false);
+        Vector3 pos = clickedObj.transform.position;
+        float offset = 0.5f;
+        curDialoguePop.transform.position = new Vector3(pos.x+offset,pos.y+offset,pos.z);
+    }
+
+    public void closeDialogueUI()
+    {
+        Destroy(curDialoguePop);
+        dialogueUI.SetActive(false);
         isShowingText = false;
     }
     void ClickedObj(GameObject obj)
@@ -235,10 +257,11 @@ public class ZoomingController : MonoBehaviour
         
     }
 
-    void SetLocalizedText(string localizationKey)
+    void SetLocalizedText(GameObject dialoguePop,string localizationKey)
     {
-        textEvent.StringReference.TableEntryReference = localizationKey; // 设置条目键值
-        textEvent.RefreshString(); // 刷新显示的字符串
+        dialoguePop.GetComponent<dialoguePopController>().ShowDialogue(localizationKey);
+        //textEvent.StringReference.TableEntryReference = localizationKey; // 设置条目键值
+        //textEvent.RefreshString(); // 刷新显示的字符串
     }
 
     void showChildrenSprites(TreeNode n,GameObject parent)
@@ -306,6 +329,7 @@ public class ZoomingController : MonoBehaviour
 
         parentObj.GetComponent<IsZoomingParent>().setClickable(true);
         DestroyAllChildren(parentObj.transform);
+        fakePlayer.SetActive(false);
         StartCoroutine(smoothChangeObjPosAndScale(parentObj,parentOriPos,parentOriScale));
         StartCoroutine(MoveAndZoomCamera(originalPosition, originalSize));
 

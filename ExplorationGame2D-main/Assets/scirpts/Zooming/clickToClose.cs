@@ -24,13 +24,13 @@ public class clickToClose : MonoBehaviour
         {
             beginListening1 = false;
             beginListening2 = false;
-            ZoomingController.Instance.textUI.SetActive(false);
+            ZoomingController.Instance.dialogueUI.SetActive(false);
         }
 
     }
 
     public void closeTextUI() {
-        ZoomingController.Instance.closeTextUI();
+        ZoomingController.Instance.closeDialogueUI();
     }
 
     static public void beginListening(bool b)

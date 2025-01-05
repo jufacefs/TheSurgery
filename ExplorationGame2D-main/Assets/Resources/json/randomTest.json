@@ -56,7 +56,7 @@
                 {
                     "_comment":"若childrenCnt为0，则为叶节点；若text为空，则点击后不显示文字",
                     "name":"leaf",
-                    "text":"",
+                    "text":"fdsafdsafdsafdsafdas",
                     "isPermanent":false,
                     "isRandomPos":true,
                     "posx":0,
